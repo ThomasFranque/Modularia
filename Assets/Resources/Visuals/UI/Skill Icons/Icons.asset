@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5165b5acb3a6f9c4396b4c8fa5b65153, type: 3}
+  m_Name: Icons
+  m_EditorClassIdentifier: 
+  _generic: {fileID: 8982099749623107299, guid: 46cb3b3d47d4e494e91edeb8f9872f76,
+    type: 3}
+  _bleed: {fileID: -5099292496197868168, guid: 2198a35718fbbad419c87b3dbd08ec0f, type: 3}
+  _multishot: {fileID: 3465286685962602723, guid: 614912cf8f197de40a404970d996268e,
+    type: 3}
+  _explosive: {fileID: -4178046375966092550, guid: 46cb3b3d47d4e494e91edeb8f9872f76,
+    type: 3}
+  _ricochet: {fileID: -855298285791758126, guid: 7fed625f042d2e44ca8a978f38df5a30,
+    type: 3}
+  _piercing: {fileID: 6937817954938267909, guid: fca400c1365d0c74a81f56b8b4669d65,
+    type: 3}
