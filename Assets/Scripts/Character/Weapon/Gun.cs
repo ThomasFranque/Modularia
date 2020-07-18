@@ -91,7 +91,7 @@ namespace Weapons
         {
             if (!CountdownIsDone || !_mag.TrySpend()) return;
 
-            Vector3 screenCenter = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 50));
+            Vector3 screenCenter = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 30));
             _anim.SetTrigger(_shootHash);
             _shootCountdown = _shootDelay -
                 (PlayerEnhancementsHandler.Instance.GenericEnhancements.AllModules[2].Value * _shootDelay);

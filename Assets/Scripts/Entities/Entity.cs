@@ -8,18 +8,21 @@ namespace Entities
     public abstract class Entity : MonoBehaviour, IHittable
     {
         [SerializeField] private float _maxHp = 20;
-        public float MaxHp => _maxHp;
         private float _currentHP;
-        public float CurrentHP
-        {
-            get => _currentHP;
-            private set => _currentHP = Mathf.Clamp(value, 0, MaxHp);
-        }
         public bool Invulnerable { get; private set; }
         public Entity AttachedEntity => this;
         private Collider _col;
         public Collider AttachedCollider => _col;
         private bool _dead;
+
+        public float CurrentHP
+        {
+            get => _currentHP;
+            private set => _currentHP = Mathf.Clamp(value, 0, MaxHp);
+        }
+
+        public float MaxHp => _maxHp;
+        public bool Damaged => CurrentHP < MaxHp;
 
         protected void Awake()
         {
@@ -58,9 +61,12 @@ namespace Entities
                 Death();
         }
 
-        public void Heal(float heal)
+        public bool Heal(float heal)
         {
+            bool overHeal = CurrentHP + heal >= MaxHp;
             CurrentHP += heal;
+            Debug.Log("Bandages * " + heal);
+            return overHeal;
         }
 
         public void Revive()

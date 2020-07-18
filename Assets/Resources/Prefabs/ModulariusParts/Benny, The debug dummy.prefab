@@ -808,8 +808,11 @@ GameObject:
   - component: {fileID: 9075230950820138656}
   - component: {fileID: 9075230950820138658}
   - component: {fileID: 9075230950820138659}
+  - component: {fileID: 2657507384261656684}
+  - component: {fileID: 8059750682958064167}
+  - component: {fileID: 2542136461121319843}
   m_Layer: 0
-  m_Name: Benny
+  m_Name: Benny, The debug dummy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -967,6 +970,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _executing: 0
+--- !u!114 &2657507384261656684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9075230950820138649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 015c26f672d6483419b03b417d78ba5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _executing: 0
+--- !u!135 &8059750682958064167
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9075230950820138649}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2542136461121319843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9075230950820138649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e5912314dbe9e94da0b0ff00c8f77b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHp: 20
+  _profile: {fileID: 0}
+  _limbs: []
 --- !u!1 &9197280346106442731
 GameObject:
   m_ObjectHideFlags: 0

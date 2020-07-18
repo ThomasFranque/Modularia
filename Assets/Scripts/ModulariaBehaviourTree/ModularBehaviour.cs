@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using Entities;
 using Entities.Modularius;
+using Entities.Modularius.Parts;
 using Entities.Modularius.BaseBehaviours;
 using UnityEngine;
 
 namespace ModulariaBehaviourTree
 {
-    [RequireComponent(typeof(BehaviourTree))]
+    [RequireComponent(typeof(BehaviourTree), typeof(Entity))]
     [RequireComponent(typeof(ProximityChecker), typeof(SmoothLookAt), typeof(Follow))]
     public abstract class ModularBehaviour : MonoBehaviour, ITreeComponent
     {
@@ -21,6 +22,7 @@ namespace ModulariaBehaviourTree
         protected ITreeComponent _caller;
         protected List<ITreeComponent> Parents;
 
+        protected Entity AttachedEntity { get; private set; }
         protected Transform BehaviourSpawnsTransform { get; private set; }
         protected ProximityChecker Proximity { get; private set; }
         protected SmoothLookAt LookAtPlayer { get; private set; }
@@ -34,11 +36,12 @@ namespace ModulariaBehaviourTree
 
         protected void Awake()
         {
+            BehaviourSpawnsTransform = transform.Find(BEHAVIOUR_SPAWNS_OBJECT_NAME);
+            Player = GameObject.FindObjectOfType<PlayerEntity>();
+            AttachedEntity = GetComponent<Entity>();
             Proximity = GetComponent<ProximityChecker>();
             LookAtPlayer = GetComponent<SmoothLookAt>();
             Follow = GetComponent<Follow>();
-            Player = GameObject.FindObjectOfType<PlayerEntity>();
-            BehaviourSpawnsTransform = transform.Find(BEHAVIOUR_SPAWNS_OBJECT_NAME);
             OnAwake();
         }
 
