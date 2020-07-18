@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using Entities;
 using Entities.Modularius;
-using Entities.Modularius.Parts;
 using Entities.Modularius.BaseBehaviours;
+using Entities.Modularius.Parts;
 using UnityEngine;
 
 namespace ModulariaBehaviourTree
@@ -54,6 +54,7 @@ namespace ModulariaBehaviourTree
 
         public bool Execute(ITreeComponent caller, Action onComplete = default)
         {
+            if (!Condition()) return false;
             _caller = caller;
             Execute(onComplete);
             return true;

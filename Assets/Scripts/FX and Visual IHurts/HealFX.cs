@@ -62,6 +62,7 @@ public class HealFX : MonoBehaviour
 
     public void StartHeal(Entity caster, Action overhealCallback = default)
     {
+        _hpsCountdown = _healSplitSecs;
         gameObject.SetActive(true);
         _emitting = true;
         _caster = caster;
@@ -70,7 +71,7 @@ public class HealFX : MonoBehaviour
     }
     public void EndHeal()
     {
-        _emitting = true;
+        _emitting = false;
         _particleSystem.Stop();
     }
 

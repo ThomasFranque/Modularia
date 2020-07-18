@@ -18809,8 +18809,8 @@ MonoBehaviour:
   _healAbles:
     serializedVersion: 2
     m_Bits: 513
-  _hps: 10
-  _healSplitMiliSecs: 1
+  _hps: 5
+  _healSplitSecs: 1.5
 --- !u!1 &159118
 GameObject:
   m_ObjectHideFlags: 0

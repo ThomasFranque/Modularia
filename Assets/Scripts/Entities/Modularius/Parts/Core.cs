@@ -17,7 +17,7 @@ namespace Entities.Modularius.Parts
 
         protected override void OnHit(RaycastHit hit, Projectile projectile, float damage)
         {
-
+            
         }
     }
 }

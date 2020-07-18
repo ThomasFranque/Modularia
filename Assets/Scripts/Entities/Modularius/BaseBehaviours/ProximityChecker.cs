@@ -4,6 +4,7 @@ namespace Entities.Modularius.BaseBehaviours
 {
     public class ProximityChecker : MonoBehaviour
     {
+        // Max being the closest border and min being the furthest
         public bool Check(Transform target, float maxDistance = float.PositiveInfinity, float minDistance = 0)
         {
             float distance = Vector3.Distance(transform.position, target.position);

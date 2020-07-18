@@ -57,7 +57,7 @@ namespace FX
         }
         public void EndSpin()
         {
-            _emitting = true;
+            _emitting = false;
             _particleSystem.Stop();
         }
 

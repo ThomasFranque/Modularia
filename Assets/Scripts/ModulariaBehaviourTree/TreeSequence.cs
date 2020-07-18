@@ -59,6 +59,7 @@ namespace ModulariaBehaviourTree
                 _runningComponent = _sequence[_currentIndex];
                 success = _runningComponent.Execute(this, ExecuteNext);
                 _currentIndex++;
+                if (!success) ExecuteNext();
             }
             else
                 Complete();
