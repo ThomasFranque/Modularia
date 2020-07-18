@@ -154,7 +154,7 @@ namespace FX
             EnableObject();
             globalImpactProgress = 0f;
             smartWaveParticles.SpawnWave();
-            sfxcontroller.PlayShootSound();
+            //sfxcontroller.PlayShootSound();
         }
 
         public void StopEmitting()

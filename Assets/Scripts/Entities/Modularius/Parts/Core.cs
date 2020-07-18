@@ -5,7 +5,7 @@ using Projectiles;
 
 namespace Entities.Modularius.Parts
 {
-    public class Core : Entity
+    public class Core : ModulariuPart
     {
         [SerializeField] private Limb[] _limbs = default;
         public void INIT()

@@ -2,7 +2,7 @@
 
 namespace Entities.Modularius.Parts
 {
-    public class Limb : Entity
+    public class Limb : ModulariuPart
     {
         private Core _core;
 

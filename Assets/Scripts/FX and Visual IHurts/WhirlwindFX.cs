@@ -7,7 +7,7 @@ namespace FX
 {
     public class WhirlwindFX : Damager
     {
-        public const float BASE_RADIUS = 1.3f;
+        public const float BASE_RADIUS = 1.8f;
         private const float BASE_DAMAGE = 5.0f;
         //
         [SerializeField] private float _dps = BASE_DAMAGE;
@@ -16,7 +16,7 @@ namespace FX
         private bool CanDealDamage => _dpsCountdown <= 0;
         public override float Damage => _damageSplitMiliSecs * _dps;
 
-        private bool _emmiting;
+        private bool _emitting;
         //
 
         private ParticleSystem _particleSystem;
@@ -33,7 +33,7 @@ namespace FX
 
         private void FixedUpdate()
         {
-            if (!_emmiting || !CanDealDamage) return;
+            if (!_emitting || !CanDealDamage) return;
             Collider[] within =
                 Physics.OverlapSphere(transform.position, BASE_RADIUS, _hurtableMask);
             foreach (Collider c in within)
@@ -52,13 +52,19 @@ namespace FX
         public void StartSpin()
         {
             gameObject.SetActive(true);
-            _emmiting = true;
+            _emitting = true;
             _particleSystem.Play();
         }
         public void EndSpin()
         {
-            _emmiting = true;
+            _emitting = true;
             _particleSystem.Stop();
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, BASE_RADIUS);
         }
     }
 }
