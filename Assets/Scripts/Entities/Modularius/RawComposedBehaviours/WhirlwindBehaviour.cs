@@ -21,7 +21,7 @@ namespace Entities.Modularius.ComposedBehaviours
             _whirlwindFX =
                 Instantiate(_whirlwindPrefab, transform.position,
                     _whirlwindPrefab.transform.rotation,
-                    transform)
+                    BehaviourSpawnsTransform)
                 .GetComponent<WhirlwindFX>();
 
             _delayAfterSpin = new WaitForSeconds(1.0f);

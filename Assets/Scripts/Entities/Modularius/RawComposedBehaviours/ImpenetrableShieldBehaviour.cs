@@ -23,7 +23,7 @@ namespace Entities.Modularius.ComposedBehaviours
             _shieldFX =
                 Instantiate(_spinPrefab, transform.position,
                     _spinPrefab.transform.rotation,
-                    transform)
+                    BehaviourSpawnsTransform)
                 .GetComponentInChildren<ShieldFX>();
             SetShieldInvulnerable();
         }

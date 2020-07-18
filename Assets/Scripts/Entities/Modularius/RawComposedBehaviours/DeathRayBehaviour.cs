@@ -23,7 +23,9 @@ namespace Entities.Modularius.ComposedBehaviours
                 _rayPrefab = Resources.Load<GameObject>(PATH_TO_PREFAB);
 
             _ray =
-                Instantiate(_rayPrefab, transform.position, transform.rotation, transform)
+                Instantiate(_rayPrefab, transform.position,
+                    transform.rotation,
+                    BehaviourSpawnsTransform)
                 .GetComponentInChildren<DeathRay>();
 
             _delayAfterCompletion = new WaitForSeconds(1.0f);

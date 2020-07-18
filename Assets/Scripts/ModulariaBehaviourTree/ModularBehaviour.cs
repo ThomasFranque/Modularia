@@ -11,6 +11,7 @@ namespace ModulariaBehaviourTree
     [RequireComponent(typeof(ProximityChecker), typeof(SmoothLookAt), typeof(Follow))]
     public abstract class ModularBehaviour : MonoBehaviour, ITreeComponent
     {
+        private const string BEHAVIOUR_SPAWNS_OBJECT_NAME = "Behaviour Spawns";
         [SerializeField, ReadOnly] private bool _executing = default;
         protected const string PATH_TO_PREFABS_FOLDER = "Prefabs/";
         public PlayerEntity Player { get; private set; }
@@ -20,6 +21,7 @@ namespace ModulariaBehaviourTree
         protected ITreeComponent _caller;
         protected List<ITreeComponent> Parents;
 
+        protected Transform BehaviourSpawnsTransform { get; private set; }
         protected ProximityChecker Proximity { get; private set; }
         protected SmoothLookAt LookAtPlayer { get; private set; }
         protected Follow Follow { get; private set; }
@@ -36,6 +38,7 @@ namespace ModulariaBehaviourTree
             LookAtPlayer = GetComponent<SmoothLookAt>();
             Follow = GetComponent<Follow>();
             Player = GameObject.FindObjectOfType<PlayerEntity>();
+            BehaviourSpawnsTransform = transform.Find(BEHAVIOUR_SPAWNS_OBJECT_NAME);
             OnAwake();
         }
 

@@ -21,7 +21,7 @@ namespace Entities.Modularius.ComposedBehaviours
             _spinFX =
                 Instantiate(_spinPrefab, transform.position,
                     _spinPrefab.transform.rotation,
-                    transform)
+                    BehaviourSpawnsTransform)
                 .GetComponentInChildren<SpinFX>();
 
             _delayAfterSpin = new WaitForSeconds(0.5f);
