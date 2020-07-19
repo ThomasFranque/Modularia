@@ -27,6 +27,7 @@ namespace Entities.Modularius.ComposedBehaviours
                     transform.rotation,
                     BehaviourSpawnsTransform)
                 .GetComponentInChildren<DeathRay>();
+            _ray.transform.localPosition = Vector3.zero;
 
             _delayAfterCompletion = new WaitForSeconds(1.0f);
             _chargeUp = new WaitForSeconds(CHARGE_UP_TIME);

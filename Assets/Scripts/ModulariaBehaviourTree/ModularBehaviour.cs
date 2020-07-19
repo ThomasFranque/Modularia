@@ -49,20 +49,22 @@ namespace ModulariaBehaviourTree
 
         public bool Execute()
         {
-            if (Condition())
-            {
-                Execute(default);
-                return true;
-            }
-            return false;
+            if (!Condition()) return false;
+
+            Execute(default);
+            Debug.Log(OnComplete);
+
+            return true;
         }
 
         public bool Execute(ITreeComponent caller, Action onComplete = default)
         {
             if (!Condition()) return false;
+
             _caller = caller;
             Execute(onComplete);
             Tree.SetCurrentRunning(this);
+
             return true;
         }
 

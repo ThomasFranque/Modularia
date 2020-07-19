@@ -677,6 +677,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 20
+  _modStats:
+    _damage: 0
+    _speed: 0
+    _defense: 0
 --- !u!1 &281925477
 GameObject:
   m_ObjectHideFlags: 0
@@ -984,6 +988,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 20
+  _modStats:
+    _damage: 0
+    _speed: 0
+    _defense: 0
 --- !u!1 &555617630
 GameObject:
   m_ObjectHideFlags: 0
@@ -1484,7 +1492,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 946375616}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.832, y: 1.3845999, z: 0.63819945}
+  m_LocalPosition: {x: 0.25, y: 1.3845999, z: -5.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 434060281}
@@ -1776,6 +1784,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 20
+  _modStats:
+    _damage: 0
+    _speed: 0
+    _defense: 0
 --- !u!1 &1052913826
 GameObject:
   m_ObjectHideFlags: 0
@@ -1802,7 +1814,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1052913826}
   m_LocalRotation: {x: -0, y: 0.96331143, z: 0.26838627, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0.4495}
+  m_LocalPosition: {x: 0, y: 0, z: -3.9404998}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 587202477}
@@ -2429,7 +2441,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1525540870}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: -4.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 963194228}
@@ -2469,6 +2481,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 20
+  _modStats:
+    _damage: 0
+    _speed: 0
+    _defense: 0
 --- !u!1 &1630147020
 GameObject:
   m_ObjectHideFlags: 0
@@ -2829,6 +2845,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 20
+  _modStats:
+    _damage: 0
+    _speed: 0
+    _defense: 0
 --- !u!1 &1795373190
 GameObject:
   m_ObjectHideFlags: 0
@@ -22181,6 +22201,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Benny
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075230950820138649, guid: 49c47c5aa8c32e048a76db44238ce857,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9075230950820138660, guid: 49c47c5aa8c32e048a76db44238ce857,
         type: 3}

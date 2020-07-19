@@ -11,13 +11,13 @@ namespace ModulariaBehaviourTree
             "The created tree is not valid!\nCheck if every component ends in a leaf.";
         private ITreeComponent _main;
         private ITreeComponent _currentRunning;
-        private bool _running;
+        private Coroutine nextFrameCor;
         // This bool is used to flag the start method
         private bool _runIssuedBeforeStart;
         private bool _startIssued;
 
         public ITreeComponent CurrentRunning => _currentRunning;
-        
+
         public void Initialize(TreeSelector main) =>
             Initialize(main as ITreeComponent);
         public void Initialize(TreeSequence main) =>
@@ -55,15 +55,22 @@ namespace ModulariaBehaviourTree
         private void OnSetDone()
         {
             // Debug.Log("Tree done.");
-            _currentRunning = null;
-            StartCoroutine(RunNextFrame());
+            if (nextFrameCor == default)
+            {
+                _currentRunning = null;
+                nextFrameCor = StartCoroutine(RunNextFrame());
+            }
         }
-        private void Run() => _main.Execute();
+        private void Run()
+        {
+            _main.Execute();
+        }
 
         // From https://forum.unity.com/threads/how-to-wait-for-a-frame-in-c.24616/
         IEnumerator RunNextFrame()
         {
             yield return 0;
+            nextFrameCor = default;
             Run();
         }
     }

@@ -69,6 +69,7 @@ namespace Entities
             if (_dead || (Invulnerable && !overrideInvulnerability)) return;
 
             CurrentHP -= damage;
+            Debug.Log(CurrentHP);
 
             if (CurrentHP <= 0)
                 Death();
@@ -84,6 +85,7 @@ namespace Entities
 
         public void Revive()
         {
+            gameObject.SetActive(true);
             CurrentHP = _maxHp;
             _dead = false;
         }

@@ -255,11 +255,6 @@ namespace EntityFactory
             tree.Initialize(mainSelector);
         }
 
-        private static void AddTypeToCore(Type t, Core core)
-        {
-            core.gameObject.AddComponent(t);
-        }
-
         private static ITreeComponent CreateITreeComponentFromComposed(Core core,
             ComposedBehavior composed)
         {
@@ -275,11 +270,12 @@ namespace EntityFactory
             TreeSequence sequence;
             sequence = new TreeSequence(target.Weight);
 
+            sequence.SetName(target.Name);
+
             foreach (Type t in GetAllTypesIn(target))
             {
                 sequence.AddNew(GetModularBehaviourInCore(core, t));
             }
-
             return sequence;
         }
 
@@ -296,6 +292,7 @@ namespace EntityFactory
             {
                 foreach (Type t in GetAllTypesIn(target))
                 {
+                    Debug.Log("Adding \"" + t.Name + " from \"" + target.Name + "\"");
                     selector.AddNewOption(GetModularBehaviourInCore(core, t));
                 }
             }
@@ -313,27 +310,14 @@ namespace EntityFactory
 
         private static IEnumerable<Type> GetAllTypesIn(ComposedBehavior composed)
         {
-            List<Type> collection = new List<Type>();
-
-            for (int i = 0; i < composed.TypeToggles.Length; i++)
+            for (int i = 0; i < composed.SelectedBehaviours.Length; i++)
             {
-                TypeToggle toggle = composed.TypeToggles[i];
-                // Is it selected?
-                if (!toggle.Toggle) continue;
-                Debug.Log("Adding: " + toggle.Name);
+                TypeToggle toggle = composed.SelectedBehaviours[i];
                 Type[] profileTypes = toggle.GetAllChildTypes();
 
                 // Go through all the types
                 for (int j = 0; j < profileTypes.Length; j++)
-                {
-                    Type t = profileTypes[j];
-                    // Add it if it was not already added
-                    if (!collection.Contains(t))
-                    {
-                        collection.Add(t);
-                        yield return t;
-                    }
-                }
+                    yield return profileTypes[j];
             }
         }
 
@@ -341,7 +325,14 @@ namespace EntityFactory
         {
             ModularBehaviour b =
                 core.gameObject.GetComponent(type) as ModularBehaviour;
+            if (b == default)
+                b = AddTypeToCore(type, core) as ModularBehaviour;
             return b;
+        }
+
+        private static Component AddTypeToCore(Type t, Core core)
+        {
+            return core.gameObject.AddComponent(t);
         }
     }
 }

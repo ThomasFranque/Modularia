@@ -10,7 +10,7 @@ namespace Entities.Modularius.ComposedBehaviours
         protected string PREFAB_PATH = PATH_TO_PREFABS_FOLDER + "Defences/Shield";
         private static GameObject _spinPrefab;
         public override ModulariuType Type => ModulariuType.Brawler;
-        public override float Weight => 0.4f;
+        public override float Weight => 0.1f;
         protected ShieldFX _shieldFX;
         protected virtual float ShieldActiveTime => Random.Range(10.0f, 15.0f);
 
@@ -25,6 +25,8 @@ namespace Entities.Modularius.ComposedBehaviours
                     _spinPrefab.transform.rotation,
                     BehaviourSpawnsTransform)
                 .GetComponentInChildren<ShieldFX>();
+            _shieldFX.transform.localPosition = Vector3.zero;
+
             SetShieldInvulnerable();
         }
 

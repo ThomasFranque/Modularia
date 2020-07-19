@@ -14,8 +14,6 @@ namespace Entities.Modularius.ComposedBehaviours
         public override float Weight => 0.2f;
         private Coroutine _coroutine;
 
-        private bool PlayerTooClose => Proximity.CheckSight(Player.transform, HealFX.BASE_RADIUS);
-
         protected override void OnAwake()
         {
             if (_healPrefab == null)
@@ -25,14 +23,9 @@ namespace Entities.Modularius.ComposedBehaviours
                     _healPrefab.transform.rotation,
                     BehaviourSpawnsTransform)
                 .GetComponent<HealFX>();
-            enabled = false;
-        }
+            _healFX.transform.localPosition = Vector3.zero;
 
-        // If update is running, the behaviour is active, which should prevent performance hits
-        private void Update()
-        {
-            if (PlayerTooClose)
-                PrematureKill();
+            enabled = false;
         }
 
         protected override void OnExecute()
@@ -64,7 +57,7 @@ namespace Entities.Modularius.ComposedBehaviours
         }
 
         public override bool Condition() =>
-            AttachedEntity.Damaged && !_healFX.Healing && !PlayerTooClose;
+            AttachedEntity.Damaged && !_healFX.Healing;
 
     }
 }

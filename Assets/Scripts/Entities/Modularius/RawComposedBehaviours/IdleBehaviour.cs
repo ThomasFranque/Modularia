@@ -10,14 +10,16 @@ namespace Entities.Modularius.ComposedBehaviours
         public override ModulariuType Type => default;
         public override float Weight => 1f;
 
+        private bool inIdle;
+
         protected override void OnAwake()
         {
-            this.enabled = false;
+            inIdle = false;
         }
 
         protected override void OnExecute()
         {
-            this.enabled = true;
+            inIdle = true;
             Complete();
         }
 
@@ -33,9 +35,9 @@ namespace Entities.Modularius.ComposedBehaviours
 
         private void EndIdle()
         {
-            this.enabled = false;
+            inIdle = false;
         }
 
-        public override bool Condition() => !this.enabled;
+        public override bool Condition() => !inIdle;
     }
 }

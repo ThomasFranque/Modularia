@@ -57,16 +57,18 @@ namespace Entities.Modularius.Parts
         protected override void OnHit(RaycastHit hit,
             Projectile projectile, float damage)
         {
+            DealDamage(damage);
             DamageLimbs(damage);
         }
         protected override void OnHit(float damage)
         {
+            DealDamage(damage);
             DamageLimbs(damage);
         }
 
         private void DamageLimbs(float receivedDmg)
         {
-            float dividedLimbDamage = (receivedDmg / 2) / _limbs.Length;
+            float dividedLimbDamage = (receivedDmg / 4) / _limbs.Length;
 
             for (int i = 0; i < _limbs.Length; i++)
                 _limbs[i].DealIndividualDamage(dividedLimbDamage);

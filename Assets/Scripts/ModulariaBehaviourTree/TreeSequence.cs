@@ -20,24 +20,30 @@ namespace ModulariaBehaviourTree
             _currentIndex = 0;
         }
 
-        public void Execute()
+        public bool Execute()
         {
-            Execute(default);
+            return Execute(default);
         }
 
         public bool Execute(ITreeComponent caller, Action onComplete = default)
         {
-            Execute(onComplete);
-            return _sequence[0].Condition();
+            return Execute(onComplete);
         }
 
-        private void Execute(Action onComplete)
+        string name;
+        public void SetName(string name)
+        {
+            this.name = name;
+        }
+
+        private bool Execute(Action onComplete)
         {
             //Debug.Log("Executing Sequence!");
             this.OnComplete = onComplete;
             _currentIndex = 0;
             _runningComponent = null;
             ExecuteNext();
+            return Condition();
         }
 
         private void ExecuteNext()
@@ -49,7 +55,7 @@ namespace ModulariaBehaviourTree
                 _runningComponent = _sequence[_currentIndex];
                 success = _runningComponent.Execute(this, ExecuteNext);
                 _currentIndex++;
-                if (!success) ExecuteNext();
+                if (!success) Complete();
             }
             else
                 Complete();
@@ -106,7 +112,16 @@ namespace ModulariaBehaviourTree
                 c.Kill();
         }
 
-        public bool Condition() => true;
+        public bool Condition()
+        {
+            bool condition = true;
+            for (int i = 0; i < _sequence.Length; i++)
+            {
+                condition = _sequence[0].Condition() && condition;
+                if (!condition) break;
+            }
+            return condition;
+        }
 
         public event Action OnComplete;
     }

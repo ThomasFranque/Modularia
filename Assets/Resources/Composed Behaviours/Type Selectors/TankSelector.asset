@@ -18,19 +18,19 @@ MonoBehaviour:
     _isRaw: 1
     _composedBehavior: {fileID: 0}
   - _name: HealOvertimeBehaviour
-    _toggle: 0
+    _toggle: 1
     _isRaw: 1
     _composedBehavior: {fileID: 0}
   - _name: ImpenetrableShieldBehaviour
-    _toggle: 0
+    _toggle: 1
     _isRaw: 1
     _composedBehavior: {fileID: 0}
   - _name: PenetrableShieldBehaviour
-    _toggle: 0
+    _toggle: 1
     _isRaw: 1
     _composedBehavior: {fileID: 0}
   - _name: SpinBehaviour
-    _toggle: 0
+    _toggle: 1
     _isRaw: 1
     _composedBehavior: {fileID: 0}
   - _name: WhirlwindBehaviour
@@ -81,24 +81,29 @@ MonoBehaviour:
     _isRaw: 0
     _composedBehavior: {fileID: 11400000, guid: 49aa0fe52d7866f4199f3807dafc5839,
       type: 2}
-  _selectedBehavs:
-  - _name: ImpenetrableShieldBehaviour
+  - _name: IdleBehaviour
     _toggle: 0
+    _isRaw: 1
+    _composedBehavior: {fileID: 0}
+  _selectedBehavs:
+  - _name: HealOvertimeBehaviour
+    _toggle: 1
+    _isRaw: 1
+    _composedBehavior: {fileID: 0}
+  - _name: ImpenetrableShieldBehaviour
+    _toggle: 1
     _isRaw: 1
     _composedBehavior: {fileID: 0}
   - _name: PenetrableShieldBehaviour
-    _toggle: 0
+    _toggle: 1
     _isRaw: 1
     _composedBehavior: {fileID: 0}
   - _name: SpinBehaviour
-    _toggle: 0
-    _isRaw: 1
-    _composedBehavior: {fileID: 0}
-  - _name: HealOvertimeBehaviour
-    _toggle: 0
+    _toggle: 1
     _isRaw: 1
     _composedBehavior: {fileID: 0}
   _name: TankSelector
   _behaviourType: 0
+  _weight: 0.5
   _composedType: 1
   _isRandomSelector: 1

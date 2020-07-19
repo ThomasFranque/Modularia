@@ -26,7 +26,7 @@ MonoBehaviour:
     _isRaw: 1
     _composedBehavior: {fileID: 0}
   - _name: PenetrableShieldBehaviour
-    _toggle: 0
+    _toggle: 1
     _isRaw: 1
     _composedBehavior: {fileID: 0}
   - _name: SpinBehaviour
@@ -34,7 +34,7 @@ MonoBehaviour:
     _isRaw: 1
     _composedBehavior: {fileID: 0}
   - _name: WhirlwindBehaviour
-    _toggle: 0
+    _toggle: 1
     _isRaw: 1
     _composedBehavior: {fileID: 0}
   - _name: ShieldedDeathRay
@@ -81,16 +81,21 @@ MonoBehaviour:
     _isRaw: 0
     _composedBehavior: {fileID: 11400000, guid: 863de5409aefe94408fba0bad926e010,
       type: 2}
-  _selectedBehavs:
-  - _name: PenetrableShieldBehaviour
+  - _name: IdleBehaviour
     _toggle: 0
     _isRaw: 1
     _composedBehavior: {fileID: 0}
+  _selectedBehavs:
+  - _name: PenetrableShieldBehaviour
+    _toggle: 1
+    _isRaw: 1
+    _composedBehavior: {fileID: 0}
   - _name: WhirlwindBehaviour
-    _toggle: 0
+    _toggle: 1
     _isRaw: 1
     _composedBehavior: {fileID: 0}
   _name: ShieldedWhirlwind
   _behaviourType: 2
+  _weight: 0.1
   _composedType: 0
   _isRandomSelector: 0

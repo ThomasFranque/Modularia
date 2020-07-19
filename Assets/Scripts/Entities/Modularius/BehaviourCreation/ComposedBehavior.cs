@@ -9,7 +9,7 @@ namespace Entities.Modularius.BehaviourCreation
     [CreateAssetMenu(menuName = "Modularius/Composed Behaviour", fileName = "Composed Behaviour")]
     public class ComposedBehavior : BehaviourToggleCollection
     {
-        [SerializeField, HideInInspector] private TypeToggle[] _selectedBehavs = default;
+        [SerializeField] private TypeToggle[] _selectedBehavs = default;
         [SerializeField] private string _name = default;
         [SerializeField] private ModulariuType _behaviourType = default;
         [SerializeField] private float _weight = 0.5f;
@@ -37,7 +37,7 @@ namespace Entities.Modularius.BehaviourCreation
         public bool SelectionContains(TypeToggle toggle)
         {
             for (int i = 0; i < _selectedBehavs.Length; i++)
-                if (toggle == _selectedBehavs[i]) return true;
+                if (toggle.Name == _selectedBehavs[i].Name) return true;
             return false;
         }
 
@@ -45,6 +45,7 @@ namespace Entities.Modularius.BehaviourCreation
         {
             List<TypeToggle> tempCollection = _selectedBehavs.ToList();
             tempCollection.Add(typeToggle);
+            typeToggle.SetToggle(true);
             _selectedBehavs = tempCollection.ToArray();
             typeToggle.GetAllChildTypes();
         }
@@ -52,6 +53,7 @@ namespace Entities.Modularius.BehaviourCreation
         {
             List<TypeToggle> tempCollection = _selectedBehavs.ToList();
             tempCollection.Remove(typeToggle);
+            typeToggle.SetToggle(false);
             _selectedBehavs = tempCollection.ToArray();
         }
 

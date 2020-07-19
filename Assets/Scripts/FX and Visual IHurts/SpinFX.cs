@@ -8,7 +8,7 @@ namespace FX
     public class SpinFX : Damager
     {
         private const float BASE_DAMAGE = 2.0f;
-        private const float BASE_RADIUS = 1.3f;
+        public const float BASE_RADIUS = 1.3f;
         private ParticleSystem _spin;
         public override float Damage => BASE_DAMAGE;
         private void Awake()

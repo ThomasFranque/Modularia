@@ -13,6 +13,11 @@ namespace Entities.Modularius.Parts
             protected set => _type = value;
         }
 
+        protected override void OnAwake()
+        {
+            OnDeath += DisableSelf;
+        }
+
         public virtual void FactorySetup(ModulariuType type, ModifierStats stats,
             Core core, Limb[] limbs)
         {
@@ -37,6 +42,11 @@ namespace Entities.Modularius.Parts
         protected virtual void OnTreeFinished()
         {
 
+        }
+
+        private void DisableSelf()
+        {
+            gameObject.SetActive(false);
         }
 
         public bool IsOfType(ModulariuType type) => Type == type;

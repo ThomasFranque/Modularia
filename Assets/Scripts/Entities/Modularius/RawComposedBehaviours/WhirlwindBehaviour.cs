@@ -11,7 +11,7 @@ namespace Entities.Modularius.ComposedBehaviours
         private static GameObject _whirlwindPrefab;
         public override ModulariuType Type => ModulariuType.Brawler;
         private WhirlwindFX _whirlwindFX;
-        public override float Weight => 0.2f;
+        public override float Weight => 0.3f;
         private WaitForSeconds _delayAfterSpin;
 
         protected override void OnAwake()
@@ -23,6 +23,7 @@ namespace Entities.Modularius.ComposedBehaviours
                     _whirlwindPrefab.transform.rotation,
                     BehaviourSpawnsTransform)
                 .GetComponent<WhirlwindFX>();
+            _whirlwindFX.transform.localPosition = Vector3.zero;
 
             _delayAfterSpin = new WaitForSeconds(1.0f);
         }
@@ -37,13 +38,14 @@ namespace Entities.Modularius.ComposedBehaviours
             Follow.StartFollowing(Player.transform, FollowType.Lerp, 1.3f);
             LookAtPlayer.StartLooking(Player.transform, FollowType.Lerp, 3f);
             _whirlwindFX.StartSpin();
-            yield return new WaitForSeconds (Random.Range(4.0f, 8.0f));
+            yield return new WaitForSeconds(Random.Range(4.0f, 8.0f));
             _whirlwindFX.EndSpin();
             Follow.StopFollowing();
             yield return _delayAfterSpin;
             Complete();
         }
 
-        public override bool Condition() => Proximity.Check(Player.transform, WhirlwindFX.BASE_RADIUS * 4.5f, WhirlwindFX.BASE_RADIUS * 0.3f);
+        public override bool Condition() =>
+            Proximity.Check(Player.transform, WhirlwindFX.BASE_RADIUS * 10.5f, WhirlwindFX.BASE_RADIUS * 0.2f);
     }
 }
