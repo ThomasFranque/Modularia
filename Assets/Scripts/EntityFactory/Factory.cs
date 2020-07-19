@@ -15,7 +15,7 @@ namespace EntityFactory
         private const string PARTS_PROFILE_PATH = "Modulariu Parts/";
         private const int MAX_LIMBS = 3;
         private const float BASE_RARE_PART_CHANCE = 0.25f;
-        private const float BASE_NEW_PART_CHANCE = 1.3f;
+        private const float BASE_NEW_PART_CHANCE = .3f;
         private static GameObject _ShooterLimb;
         private static GameObject _BrawlerLimb;
         private static GameObject _TankLimb;
