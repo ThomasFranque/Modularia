@@ -10,9 +10,9 @@ namespace Entities.Modularius.ComposedBehaviours
         protected string PREFAB_PATH = PATH_TO_PREFABS_FOLDER + "Defences/Shield";
         private static GameObject _spinPrefab;
         public override ModulariuType Type => ModulariuType.Brawler;
+        public override float Weight => 0.4f;
         protected ShieldFX _shieldFX;
         protected virtual float ShieldActiveTime => Random.Range(10.0f, 15.0f);
-        public override float Weight => 0.4f;
 
         protected Coroutine _coroutine;
 

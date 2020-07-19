@@ -38,5 +38,7 @@ namespace Entities.Modularius.Parts
         {
 
         }
+
+        public bool IsOfType(ModulariuType type) => Type == type;
     }
 }

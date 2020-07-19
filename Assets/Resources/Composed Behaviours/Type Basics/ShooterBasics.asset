@@ -52,11 +52,6 @@ MonoBehaviour:
     _isRaw: 0
     _composedBehavior: {fileID: 11400000, guid: d01972dd5cd2bd749872a9ed6de9269f,
       type: 2}
-  - _name: 
-    _toggle: 0
-    _isRaw: 0
-    _composedBehavior: {fileID: 11400000, guid: b6b9909ff1203b74cac81bc70ab9ea74,
-      type: 2}
   - _name: BrawlerSelector
     _toggle: 0
     _isRaw: 0
@@ -72,7 +67,22 @@ MonoBehaviour:
     _isRaw: 0
     _composedBehavior: {fileID: 11400000, guid: 728344b647195dd4aa65eac43144dee5,
       type: 2}
+  - _name: ShooterBasics
+    _toggle: 0
+    _isRaw: 0
+    _composedBehavior: {fileID: 11400000}
+  - _name: BrawlerBasics
+    _toggle: 0
+    _isRaw: 0
+    _composedBehavior: {fileID: 11400000, guid: b6b9909ff1203b74cac81bc70ab9ea74,
+      type: 2}
+  - _name: TankBasics
+    _toggle: 0
+    _isRaw: 0
+    _composedBehavior: {fileID: 11400000, guid: 49aa0fe52d7866f4199f3807dafc5839,
+      type: 2}
   _selectedBehavs: []
-  _name: 
-  _composedType: 0
-  _isRandomSelector: 0
+  _name: ShooterBasics
+  _behaviourType: 1
+  _composedType: 1
+  _isRandomSelector: 1

@@ -38,7 +38,7 @@ MonoBehaviour:
     _isRaw: 1
     _composedBehavior: {fileID: 0}
   - _name: PenetrableHealingZone
-    _toggle: 0
+    _toggle: 1
     _isRaw: 0
     _composedBehavior: {fileID: 11400000, guid: f2547822ab090974499ec5a3048fd48b,
       type: 2}
@@ -82,6 +82,6 @@ MonoBehaviour:
     _isRaw: 0
     _composedBehavior: {fileID: 11400000, guid: 728344b647195dd4aa65eac43144dee5,
       type: 2}
-  _name: 
+  _name: Healer
   _type: 0
-  _influence: 0.5
+  _influence: 0.7

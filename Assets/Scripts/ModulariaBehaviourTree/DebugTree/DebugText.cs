@@ -8,7 +8,7 @@ namespace ModulariaBehaviourTree.Debugging
     {
         public static List<DebugText> Texts;
         public static bool _show;
-        [SerializeField] private TextMeshPro _textPro;
+        [SerializeField] private TextMeshPro _textPro = default;
 
         private BehaviourTree _tree;
 

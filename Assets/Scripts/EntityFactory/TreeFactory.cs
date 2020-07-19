@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Entities;
 using Entities.Modularius;
 using Entities.Modularius.BehaviourCreation;
+using Entities.Modularius.ComposedBehaviours;
 using Entities.Modularius.Parts;
 using ModulariaBehaviourTree;
 using UnityEngine;
@@ -57,8 +58,42 @@ namespace EntityFactory
             return Resources.Load<ComposedBehavior>(path);
         }
 
+        /// <summary>
+        /// Will generate a behaviour tree to the given core using the limbs
+        /// and core's behaviours
+        /// </summary>
+        /// <param name="core">Target core</param>
         public static void GenerateTree(Core core)
         {
+            /*
+            The tree works as follows:
+
+            [X] - Random Selector
+            [>] - Sequential Selector
+
+                          [>]Main Selector          --> Layer 0
+                           /            \
+                     [X]Attack          Idle        --> Layer 1
+                       Selector         Leaf
+                  /      |     \
+        [X]Shooter  [X]Brawler  [X]Tank             --> Layer 2
+           Selector    Selector    Selector
+              |          |         |
+             ...        ...       ...               --> Layer 3...
+
+            - All the behaviours and composed behaviours will be added to the 
+            respective selector.
+
+            - If a core has all limbs of its type it will be considered an elite
+            and add the type special composed behaviour.
+
+            - The Layer 2 Selector chances will be determined by taking into
+            account the core type and limbs, the core having an weight of 0.8
+            while limbs have 0.2 (Do not mix weights with influences. Influences
+            were supposed to be the stats influence on the core, having nothing
+            to do with the tree).
+            */
+
             BehaviourTree tree;
             List<Type> addedTypes;
             List<ComposedBehavior> composedBehaviors;
@@ -74,6 +109,12 @@ namespace EntityFactory
                 for (int i = 0; i < p.TypeToggles.Length; i++)
                 {
                     TypeToggle toggle = p.TypeToggles[i];
+
+                    // Is it selected?
+                    if (!toggle.Toggle) continue;
+
+                    Debug.Log("Adding: " + toggle.Name);
+
                     Type[] profileTypes = toggle.GetAllChildTypes();
 
                     // Go through all the types
@@ -97,12 +138,97 @@ namespace EntityFactory
                 }
             }
 
-            TreeSelector _shooterSelector = new TreeSelector(true);
-            TreeSelector _brawlerSelector = new TreeSelector(true);
-            TreeSelector _tankSelector = new TreeSelector(true);
-            TreeSelector _mainSelector = new TreeSelector(true,
-                _shooterSelector, _brawlerSelector, _tankSelector);
+            //TODO: Put bellow in another method
 
+            float shooterChance;
+            float brawlerChance;
+            float tankChance;
+
+            TreeSelector shooterSelector;
+            TreeSelector brawlerSelector;
+            TreeSelector tankSelector;
+
+            TreeSelector attackSelector;
+            ITreeComponent idleBehaviour;
+
+            TreeSelector mainSelector;
+
+            idleBehaviour = core.gameObject.AddComponent<IdleBehaviour>();
+
+            // Get the chances of each selector
+            shooterChance =
+                core.IsOfType(ModulariuType.Shooter) ?
+                0.8f :
+                0.1f;
+            brawlerChance =
+                core.IsOfType(ModulariuType.Brawler) ?
+                0.8f :
+                0.1f;
+            tankChance =
+                core.IsOfType(ModulariuType.Tank) ?
+                0.8f :
+                0.1f;
+
+            if (core.HasShooterLimb)
+                shooterChance += 0.2f * core.ShooterLimbs;
+            if (core.HasBrawlerLimb)
+                brawlerChance += 0.2f * core.BrawlerLimbs;
+            if (core.HasTankLimb)
+                tankChance += 0.2f * core.TankLimbs;
+
+            // Initialize selectors
+            shooterSelector = new TreeSelector(true, shooterChance);
+            brawlerSelector = new TreeSelector(true, brawlerChance);
+            tankSelector = new TreeSelector(true, tankChance);
+            attackSelector = new TreeSelector(true, 1,
+                shooterSelector, brawlerSelector, tankSelector);
+            mainSelector = new TreeSelector(false, 1, attackSelector, idleBehaviour);
+
+            // Set defaults and determine special abilities
+            //Is Shooter?
+            if (core.IsOfType(ModulariuType.Shooter))
+            {
+                // Is elite shooter
+                if (core.ShooterLimbs > 2)
+                    shooterSelector
+                    .AddNewOption(
+                        CreateITreeComponentFromComposed(
+                            core, _shooterSpecial));
+                shooterSelector
+                    .AddNewOption(
+                        CreateITreeComponentFromComposed(
+                            core, _shooterDefault));
+            }
+            // Is Brawler?
+            else if (core.IsOfType(ModulariuType.Brawler))
+            {
+                // Is elite brawler
+                if (core.BrawlerLimbs > 2)
+                    brawlerSelector
+                    .AddNewOption(
+                        CreateITreeComponentFromComposed(
+                            core, _brawlerSpecial));
+                brawlerSelector
+                    .AddNewOption(
+                        CreateITreeComponentFromComposed(
+                            core, _brawlerDefault));
+            }
+            // Is Tank?
+            else if (core.IsOfType(ModulariuType.Tank))
+            {
+                // Is elite tank
+                if (core.TankLimbs > 2)
+                    tankSelector
+                    .AddNewOption(
+                        CreateITreeComponentFromComposed(
+                            core, _tankSpecial));
+                tankSelector
+                    .AddNewOption(
+                        CreateITreeComponentFromComposed(
+                            core, _tankDefault));
+            }
+
+            // Run through limb's behaviours and add them
             foreach (ComposedBehavior c in composedBehaviors)
             {
                 ITreeComponent component;
@@ -114,18 +240,19 @@ namespace EntityFactory
                 switch (c.BehaviourType)
                 {
                     case ModulariuType.Shooter:
-                        _shooterSelector.AddNewOption(component);
+                        shooterSelector.AddNewOption(component);
                         break;
                     case ModulariuType.Brawler:
-                        _brawlerSelector.AddNewOption(component);
+                        brawlerSelector.AddNewOption(component);
                         break;
                     case ModulariuType.Tank:
-                        _tankSelector.AddNewOption(component);
+                        tankSelector.AddNewOption(component);
                         break;
                 }
             }
 
-            tree.Initialize(_mainSelector);
+            // Initialize the tree with the default selector
+            tree.Initialize(mainSelector);
         }
 
         private static void AddTypeToCore(Type t, Core core)
@@ -133,11 +260,20 @@ namespace EntityFactory
             core.gameObject.AddComponent(t);
         }
 
+        private static ITreeComponent CreateITreeComponentFromComposed(Core core,
+            ComposedBehavior composed)
+        {
+            if (composed.ComposedType == TreeComponentType.Selector)
+                return CreateSelectorFromComposed(core, composed);
+            else
+                return CreateSequenceFromComposed(core, composed);
+        }
+
         private static TreeSequence CreateSequenceFromComposed(Core core,
             ComposedBehavior target)
         {
             TreeSequence sequence;
-            sequence = new TreeSequence();
+            sequence = new TreeSequence(target.Weight);
 
             foreach (Type t in GetAllTypesIn(target))
             {
@@ -154,7 +290,7 @@ namespace EntityFactory
             List<ModularBehaviour> modularBehaviours;
 
             modularBehaviours = new List<ModularBehaviour>();
-            selector = new TreeSelector(true);
+            selector = new TreeSelector(true, target.Weight);
 
             if (target.IsRandomSelector)
             {
@@ -168,7 +304,7 @@ namespace EntityFactory
                 foreach (Type t in GetAllTypesIn(target))
                 {
                     ModularBehaviour behaviour = GetModularBehaviourInCore(core, t);
-                    selector.AddNewOption((behaviour.Condition, behaviour));
+                    selector.AddNewOption(behaviour);
                 }
             }
 
@@ -182,6 +318,9 @@ namespace EntityFactory
             for (int i = 0; i < composed.TypeToggles.Length; i++)
             {
                 TypeToggle toggle = composed.TypeToggles[i];
+                // Is it selected?
+                if (!toggle.Toggle) continue;
+                Debug.Log("Adding: " + toggle.Name);
                 Type[] profileTypes = toggle.GetAllChildTypes();
 
                 // Go through all the types

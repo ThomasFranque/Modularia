@@ -77,7 +77,20 @@ MonoBehaviour:
     _isRaw: 0
     _composedBehavior: {fileID: 11400000, guid: 728344b647195dd4aa65eac43144dee5,
       type: 2}
-  _selectedBehavs: []
-  _name: 
-  _composedType: 0
-  _isRandomSelector: 0
+  - _name: TankBasics
+    _toggle: 0
+    _isRaw: 0
+    _composedBehavior: {fileID: 11400000}
+  _selectedBehavs:
+  - _name: PenetrableShieldBehaviour
+    _toggle: 0
+    _isRaw: 1
+    _composedBehavior: {fileID: 0}
+  - _name: HealOvertimeBehaviour
+    _toggle: 0
+    _isRaw: 1
+    _composedBehavior: {fileID: 0}
+  _name: TankBasics
+  _behaviourType: 0
+  _composedType: 1
+  _isRandomSelector: 1

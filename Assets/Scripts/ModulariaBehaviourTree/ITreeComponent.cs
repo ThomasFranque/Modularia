@@ -13,7 +13,7 @@ namespace ModulariaBehaviourTree
         /// <summary>
         /// Called by the behaviour tree in case it is given as the main Component
         /// </summary>
-        void Execute();
+        bool Execute();
         /// <summary>
         /// Used by the tree leafs to tell the tree that they are done
         /// </summary>
@@ -53,7 +53,5 @@ namespace ModulariaBehaviourTree
         /// they should move on
         /// </summary>
         event Action OnComplete;
-
-
     }
 }

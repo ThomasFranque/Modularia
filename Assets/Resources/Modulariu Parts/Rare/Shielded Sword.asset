@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0d510e12a4146a468c811bc5577ffab, type: 3}
-  m_Name: ShieldedSword
+  m_Name: Shielded Sword
   m_EditorClassIdentifier: 
   _typeToggles:
   - _name: DeathRayBehaviour
@@ -48,7 +48,7 @@ MonoBehaviour:
     _composedBehavior: {fileID: 11400000, guid: 430bd9255d121214f933f65bc5909d5d,
       type: 2}
   - _name: ShieldedWhirlwind
-    _toggle: 0
+    _toggle: 1
     _isRaw: 0
     _composedBehavior: {fileID: 11400000, guid: d01972dd5cd2bd749872a9ed6de9269f,
       type: 2}
@@ -82,6 +82,6 @@ MonoBehaviour:
     _isRaw: 0
     _composedBehavior: {fileID: 11400000, guid: 728344b647195dd4aa65eac43144dee5,
       type: 2}
-  _name: 
+  _name: Shielded Sword
   _type: 0
-  _influence: 0.5
+  _influence: 0.7

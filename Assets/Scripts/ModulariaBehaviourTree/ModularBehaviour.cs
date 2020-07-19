@@ -47,9 +47,14 @@ namespace ModulariaBehaviourTree
 
         protected virtual void OnAwake() { }
 
-        public void Execute()
+        public bool Execute()
         {
-            Execute(default);
+            if (Condition())
+            {
+                Execute(default);
+                return true;
+            }
+            return false;
         }
 
         public bool Execute(ITreeComponent caller, Action onComplete = default)
@@ -65,6 +70,7 @@ namespace ModulariaBehaviourTree
         {
             OnComplete = onComplete;
             Executing = true;
+            gameObject.SendMessage("NewBehaviourStarted");
             OnExecute();
         }
 
@@ -112,6 +118,11 @@ namespace ModulariaBehaviourTree
         {
             Tree.Kill();
             Tree.SetDone();
+        }
+
+        public virtual void NewBehaviourStarted()
+        {
+
         }
 
         public virtual bool Condition() { return true; }

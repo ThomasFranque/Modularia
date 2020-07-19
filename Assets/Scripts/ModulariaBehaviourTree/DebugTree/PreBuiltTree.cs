@@ -8,7 +8,7 @@ namespace ModulariaBehaviourTree.Debugging
         // Start is called before the first frame update
         void Start()
         {
-            TreeSequence sequence = new TreeSequence();
+            TreeSequence sequence = new TreeSequence(1);
             for (int i = 0; i < _behaviours.Length; i++)
                 sequence.AddNew(_behaviours[i]);
 

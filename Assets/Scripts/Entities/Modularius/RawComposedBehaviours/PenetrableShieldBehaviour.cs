@@ -7,7 +7,7 @@ namespace Entities.Modularius.ComposedBehaviours
 {
     public class PenetrableShieldBehaviour : ImpenetrableShieldBehaviour
     {
-        protected override float ShieldActiveTime => Random.Range(20.0f, 30.0f);
+        protected override float ShieldActiveTime => Random.Range(5.0f, 15.0f);
         protected override void SetShieldInvulnerable() { }
 
         protected override IEnumerator CProtect()

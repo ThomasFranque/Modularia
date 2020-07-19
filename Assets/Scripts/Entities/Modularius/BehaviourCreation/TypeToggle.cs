@@ -60,6 +60,8 @@ public class TypeToggle
         }
         else
         {
+            if (ComposedBehavior == default)
+                throw new Exception("Something is wrong with " + Name);
             _types = ComposedBehavior.GetAllChildTypes();
         }
 

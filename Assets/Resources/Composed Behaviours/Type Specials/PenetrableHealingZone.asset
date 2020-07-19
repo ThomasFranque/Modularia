@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c600c3563ade8a478876860ff753caf, type: 3}
-  m_Name: ImpenetrableHealingZone
+  m_Name: PenetrableHealingZone
   m_EditorClassIdentifier: 
   _typeToggles:
   - _name: DeathRayBehaviour
@@ -42,17 +42,55 @@ MonoBehaviour:
     _isRaw: 0
     _composedBehavior: {fileID: 11400000, guid: 430bd9255d121214f933f65bc5909d5d,
       type: 2}
-  - _name: Debug
+  - _name: ShieldedWhirlwind
     _toggle: 0
     _isRaw: 0
-    _composedBehavior: {fileID: 11400000, guid: 4770d4917b373e347b2a7261ef3f54f3,
+    _composedBehavior: {fileID: 11400000, guid: d01972dd5cd2bd749872a9ed6de9269f,
       type: 2}
-  - _name: WhirlwindThenRay
+  - _name: ShooterSelector
     _toggle: 0
     _isRaw: 0
-    _composedBehavior: {fileID: 11400000, guid: 8d957997b913ee94b984f07fb8f2cb05,
+    _composedBehavior: {fileID: 11400000, guid: 33c542f570b16a448b03697b90b92892,
       type: 2}
-  _selectedBehavs: []
-  _name: 
+  - _name: TankSelector
+    _toggle: 0
+    _isRaw: 0
+    _composedBehavior: {fileID: 11400000, guid: 728344b647195dd4aa65eac43144dee5,
+      type: 2}
+  - _name: PenetrableHealingZone
+    _toggle: 0
+    _isRaw: 0
+    _composedBehavior: {fileID: 11400000}
+  - _name: BrawlerBasics
+    _toggle: 0
+    _isRaw: 0
+    _composedBehavior: {fileID: 11400000, guid: b6b9909ff1203b74cac81bc70ab9ea74,
+      type: 2}
+  - _name: ShooterBasics
+    _toggle: 0
+    _isRaw: 0
+    _composedBehavior: {fileID: 11400000, guid: ef801ffe87d57f54698ec9694910f40f,
+      type: 2}
+  - _name: TankBasics
+    _toggle: 0
+    _isRaw: 0
+    _composedBehavior: {fileID: 11400000, guid: 49aa0fe52d7866f4199f3807dafc5839,
+      type: 2}
+  - _name: BrawlerSelector
+    _toggle: 0
+    _isRaw: 0
+    _composedBehavior: {fileID: 11400000, guid: 863de5409aefe94408fba0bad926e010,
+      type: 2}
+  _selectedBehavs:
+  - _name: PenetrableShieldBehaviour
+    _toggle: 0
+    _isRaw: 1
+    _composedBehavior: {fileID: 0}
+  - _name: HealOvertimeBehaviour
+    _toggle: 0
+    _isRaw: 1
+    _composedBehavior: {fileID: 0}
+  _name: PenetrableHealingZone
+  _behaviourType: 0
   _composedType: 0
   _isRandomSelector: 0

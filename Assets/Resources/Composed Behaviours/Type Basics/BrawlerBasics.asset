@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c600c3563ade8a478876860ff753caf, type: 3}
-  m_Name: Brawler Basics
+  m_Name: BrawlerBasics
   m_EditorClassIdentifier: 
   _typeToggles:
   - _name: DeathRayBehaviour
@@ -67,7 +67,26 @@ MonoBehaviour:
     _isRaw: 0
     _composedBehavior: {fileID: 11400000, guid: 728344b647195dd4aa65eac43144dee5,
       type: 2}
-  _selectedBehavs: []
-  _name: 
-  _composedType: 0
-  _isRandomSelector: 0
+  - _name: ShooterBasics
+    _toggle: 0
+    _isRaw: 0
+    _composedBehavior: {fileID: 11400000, guid: ef801ffe87d57f54698ec9694910f40f,
+      type: 2}
+  - _name: BrawlerBasics
+    _toggle: 0
+    _isRaw: 0
+    _composedBehavior: {fileID: 11400000}
+  - _name: TankBasics
+    _toggle: 0
+    _isRaw: 0
+    _composedBehavior: {fileID: 11400000, guid: 49aa0fe52d7866f4199f3807dafc5839,
+      type: 2}
+  _selectedBehavs:
+  - _name: SpinBehaviour
+    _toggle: 0
+    _isRaw: 1
+    _composedBehavior: {fileID: 0}
+  _name: BrawlerBasics
+  _behaviourType: 2
+  _composedType: 1
+  _isRandomSelector: 1

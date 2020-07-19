@@ -6,26 +6,16 @@ namespace ModulariaBehaviourTree
 {
     public class TreeSequence : ITreeComponent
     {
-        public float Weight
-        {
-            get
-            {
-                // Create total chance
-                float totalChance = 0;
-                // Get total
-                for (int i = 0; i < _sequence.Length; i++)
-                    totalChance += _sequence[i].Weight;
-                return totalChance;
-            }
-        }
+        public float Weight { get; }
         private int _currentIndex;
         private ITreeComponent[] _sequence;
         public BehaviourTree Tree { get; set; }
         ITreeComponent _runningComponent;
         private List<ITreeComponent> Parents;
 
-        public TreeSequence(params ITreeComponent[] sequence)
+        public TreeSequence(float weight, params ITreeComponent[] sequence)
         {
+            Weight = weight;
             _sequence = sequence;
             _currentIndex = 0;
         }
@@ -38,7 +28,7 @@ namespace ModulariaBehaviourTree
         public bool Execute(ITreeComponent caller, Action onComplete = default)
         {
             Execute(onComplete);
-            return true;
+            return _sequence[0].Condition();
         }
 
         private void Execute(Action onComplete)
@@ -115,7 +105,7 @@ namespace ModulariaBehaviourTree
             foreach (ITreeComponent c in _sequence)
                 c.Kill();
         }
-        
+
         public bool Condition() => true;
 
         public event Action OnComplete;

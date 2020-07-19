@@ -65,7 +65,7 @@ namespace Projectiles
                 _enhancements[i].OnObstacleCollision(ref hit);
             }
             PlayHitAt(hit.point + (hit.normal / 8));
-            Debug.Log(hit.collider.name);
+            // Debug.Log(hit.collider.name);
 
             //Disable(true);
         }

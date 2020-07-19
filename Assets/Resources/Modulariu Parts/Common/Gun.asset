@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _typeToggles:
   - _name: DeathRayBehaviour
-    _toggle: 0
+    _toggle: 1
     _isRaw: 1
     _composedBehavior: {fileID: 0}
   - _name: HealOvertimeBehaviour
@@ -82,6 +82,6 @@ MonoBehaviour:
     _isRaw: 0
     _composedBehavior: {fileID: 11400000, guid: 728344b647195dd4aa65eac43144dee5,
       type: 2}
-  _name: 
-  _type: 0
-  _influence: 0.5
+  _name: Gun
+  _type: 1
+  _influence: 0.3

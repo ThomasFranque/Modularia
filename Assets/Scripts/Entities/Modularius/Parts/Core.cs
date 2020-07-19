@@ -11,7 +11,9 @@ namespace Entities.Modularius.Parts
         public bool HasShooterLimb { get; private set; }
         public bool HasBrawlerLimb { get; private set; }
         public bool HasTankLimb { get; private set; }
-        public bool HasTwoOfSameType { get; private set; }
+        public int ShooterLimbs { get; private set; }
+        public int BrawlerLimbs { get; private set; }
+        public int TankLimbs { get; private set; }
         public Limb[] Limbs => _limbs;
 
         public override void FactorySetup(ModulariuType type,
@@ -29,20 +31,20 @@ namespace Entities.Modularius.Parts
             {
                 ModulariuType limbType = _limbs[i].Type;
 
-                HasShooterLimb =
-                    limbType == ModulariuType.Shooter ||
-                    HasShooterLimb;
-                HasBrawlerLimb =
-                    limbType == ModulariuType.Brawler ||
-                    HasBrawlerLimb;
-                HasTankLimb =
-                    limbType == ModulariuType.Tank ||
-                    HasTankLimb;
-
-                if (l != _limbs[i] && l.Type == limbType)
+                switch (limbType)
                 {
-                    HasTwoOfSameType = true;
-                    break;
+                    case ModulariuType.Shooter:
+                        HasShooterLimb = true;
+                        ShooterLimbs++;
+                        break;
+                    case ModulariuType.Brawler:
+                        HasBrawlerLimb = true;
+                        BrawlerLimbs++;
+                        break;
+                    case ModulariuType.Tank:
+                        HasTankLimb = true;
+                        TankLimbs++;
+                        break;
                 }
             }
             l.transform.SetParent(transform);

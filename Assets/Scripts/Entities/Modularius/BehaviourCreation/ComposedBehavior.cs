@@ -12,6 +12,7 @@ namespace Entities.Modularius.BehaviourCreation
         [SerializeField, HideInInspector] private TypeToggle[] _selectedBehavs = default;
         [SerializeField] private string _name = default;
         [SerializeField] private ModulariuType _behaviourType = default;
+        [SerializeField] private float _weight = 0.5f;
         [SerializeField] private TreeComponentType _composedType = default;
         [SerializeField, HideInInspector] private bool _isRandomSelector
             = default;
@@ -21,6 +22,7 @@ namespace Entities.Modularius.BehaviourCreation
         public string Name => _name;
         public bool IsRandomSelector => _isRandomSelector;
         public ModulariuType BehaviourType => _behaviourType;
+        public float Weight => _weight;
 
         private void OnEnable()
         {

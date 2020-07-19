@@ -9,18 +9,7 @@ namespace ModulariaBehaviourTree
 {
     public class TreeSelector : ITreeComponent
     {
-        public float Weight
-        {
-            get
-            {
-                // Create total chance
-                float totalChance = 0;
-                // Get total
-                for (int i = 0; i < _selections.Length; i++)
-                    totalChance += _selections[i].next.Weight;
-                return totalChance;
-            }
-        }
+        public float Weight { get; }
         public BehaviourTree Tree { get; set; }
         private(Func<bool> condition, ITreeComponent next) [] _selections;
         private(ITreeComponent next, float chance) [] _selectionChances;
@@ -31,9 +20,10 @@ namespace ModulariaBehaviourTree
         /// Constructor for selector
         /// </summary>
         /// <param name="options"></param>
-        public TreeSelector(bool randomized, params ITreeComponent[] options)
+        public TreeSelector(bool randomized, float weight, params ITreeComponent[] options)
         {
             _selections = new(Func<bool> condition, ITreeComponent next) [options.Length];
+            Weight = weight;
             for (int i = 0; i < options.Length; i++)
             {
                 _selections[i].next = options[i];
@@ -89,13 +79,16 @@ namespace ModulariaBehaviourTree
             (ITreeComponent next, float chance) [] tempSelectionChances =
                 new(ITreeComponent next, float chance) [collectionSize];
 
-            float totalChance = Weight;
+            float totalChance = 0;
+            // Get total chance
+            for (int i = 0; i < collectionSize; i++)
+                totalChance += _selections[i].next.Weight;
 
             float finalChance = 0;
             // Assign to collection
+            // and Get final chance
             for (int i = 0; i < collectionSize; i++)
             {
-                // Get final chance
                 finalChance += _selections[i].next.Weight / totalChance;
                 // Assign
                 tempSelectionChances[i].next = _selections[i].next;
@@ -136,49 +129,22 @@ namespace ModulariaBehaviourTree
         }
 
         /// <summary>
-        /// Adds a new option to a randomized selector
+        /// Adds a new option to the selector
         /// </summary>
         /// <param name="newOption">new option</param>
         public void AddNewOption(ITreeComponent newOption)
         {
-            if (!_randomizedSelector)
-            {
-                Debug.LogError("ADDING NO CONDITION OPTIONS TO A RANDOMIZED SELECTOR IS NOT PERMITTED.");
-                return;
-            }
-            (Func<bool> condition, ITreeComponent next) [] temp =
-                ((Func<bool> condition, ITreeComponent next) []) _selections.Clone();
-            _selections =
-                new(Func<bool> condition, ITreeComponent next) [_selections.Length + 1];
-            for (int i = 0; i < _selections.Length - 1; i++)
-            {
-                _selections[i].next = temp[i].next;
-                _selections[i].condition = temp[i].condition;
-            }
-            _selections[_selections.Length - 1].next = newOption;
-            _selections[_selections.Length - 1].condition = newOption.Condition;
-            UpdateChances();
-        }
-
-        /// <summary>
-        /// Adds a new option to a default selector
-        /// </summary>
-        /// <param name="condition">condition</param>
-        /// <param name="next">component to be called</param>
-        public void AddNewOption((Func<bool> condition, ITreeComponent next) newOption)
-        {
-            if (_randomizedSelector)
-            {
-                Debug.LogError("ADDING CONDITION OPTIONS TO A NON RANDOMIZED SELECTOR IS NOT PERMITTED.");
-                return;
-            }
             (Func<bool> condition, ITreeComponent next) [] temp =
                 ((Func<bool> condition, ITreeComponent next) []) _selections.Clone();
             _selections =
                 new(Func<bool> condition, ITreeComponent next) [_selections.Length + 1];
             for (int i = 0; i < _selections.Length - 1; i++)
                 _selections[i] = temp[i];
-            _selections[_selections.Length - 1] = newOption;
+            _selections[_selections.Length - 1].next = newOption;
+            _selections[_selections.Length - 1].condition = newOption.Condition;
+
+            if (_randomizedSelector)
+                UpdateChances();
         }
 
         /// <summary>
@@ -196,7 +162,8 @@ namespace ModulariaBehaviourTree
             {
                 if (_selections[i].condition.Invoke())
                 {
-                    executed = _selectionChances[i].next.Execute(this, OnComplete);
+                    if (_selectionChances[i].chance >= roll)
+                        executed = _selectionChances[i].next.Execute(this, OnComplete);
                     // Selector fail safe
                     if (executed)
                         break;
@@ -207,7 +174,7 @@ namespace ModulariaBehaviourTree
         }
 
         /// <summary>
-        /// Linearly select one, trying every option
+        /// Linearly select one, trying every option on the way
         /// </summary>
         /// <returns>True if the selection was successful</returns>
         private bool SequentialSelect()
@@ -217,6 +184,7 @@ namespace ModulariaBehaviourTree
             {
                 if (_selections[i].condition.Invoke())
                 {
+                    Debug.Log(_selections[i].next.GetType().Name);
                     executed = _selections[i].next.Execute(this, OnComplete);
                     if (executed)
                         break;

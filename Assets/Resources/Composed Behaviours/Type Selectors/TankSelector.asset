@@ -37,11 +37,6 @@ MonoBehaviour:
     _toggle: 0
     _isRaw: 1
     _composedBehavior: {fileID: 0}
-  - _name: ImpenetrableHealingZone
-    _toggle: 0
-    _isRaw: 0
-    _composedBehavior: {fileID: 11400000, guid: f2547822ab090974499ec5a3048fd48b,
-      type: 2}
   - _name: ShieldedDeathRay
     _toggle: 0
     _isRaw: 0
@@ -57,7 +52,53 @@ MonoBehaviour:
     _isRaw: 0
     _composedBehavior: {fileID: 11400000, guid: 33c542f570b16a448b03697b90b92892,
       type: 2}
-  _selectedBehavs: []
-  _name: 
-  _composedType: 0
-  _isRandomSelector: 0
+  - _name: TankSelector
+    _toggle: 0
+    _isRaw: 0
+    _composedBehavior: {fileID: 11400000}
+  - _name: PenetrableHealingZone
+    _toggle: 0
+    _isRaw: 0
+    _composedBehavior: {fileID: 11400000, guid: f2547822ab090974499ec5a3048fd48b,
+      type: 2}
+  - _name: BrawlerSelector
+    _toggle: 0
+    _isRaw: 0
+    _composedBehavior: {fileID: 11400000, guid: 863de5409aefe94408fba0bad926e010,
+      type: 2}
+  - _name: BrawlerBasics
+    _toggle: 0
+    _isRaw: 0
+    _composedBehavior: {fileID: 11400000, guid: b6b9909ff1203b74cac81bc70ab9ea74,
+      type: 2}
+  - _name: ShooterBasics
+    _toggle: 0
+    _isRaw: 0
+    _composedBehavior: {fileID: 11400000, guid: ef801ffe87d57f54698ec9694910f40f,
+      type: 2}
+  - _name: TankBasics
+    _toggle: 0
+    _isRaw: 0
+    _composedBehavior: {fileID: 11400000, guid: 49aa0fe52d7866f4199f3807dafc5839,
+      type: 2}
+  _selectedBehavs:
+  - _name: ImpenetrableShieldBehaviour
+    _toggle: 0
+    _isRaw: 1
+    _composedBehavior: {fileID: 0}
+  - _name: PenetrableShieldBehaviour
+    _toggle: 0
+    _isRaw: 1
+    _composedBehavior: {fileID: 0}
+  - _name: SpinBehaviour
+    _toggle: 0
+    _isRaw: 1
+    _composedBehavior: {fileID: 0}
+  - _name: HealOvertimeBehaviour
+    _toggle: 0
+    _isRaw: 1
+    _composedBehavior: {fileID: 0}
+  _name: TankSelector
+  _behaviourType: 0
+  _composedType: 1
+  _isRandomSelector: 1
