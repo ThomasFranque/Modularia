@@ -63,13 +63,8 @@ namespace Entities.Modularius.ComposedBehaviours
             enabled = false;
         }
 
-        public override bool Condition()
-        {
-            Debug.Log(AttachedEntity.Damaged);
-            Debug.Log(!_healFX.Healing);
-            Debug.Log(!PlayerTooClose);
-            
-           return AttachedEntity.Damaged && !_healFX.Healing && !PlayerTooClose;
-        }
+        public override bool Condition() =>
+            AttachedEntity.Damaged && !_healFX.Healing && !PlayerTooClose;
+
     }
 }

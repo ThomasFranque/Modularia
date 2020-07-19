@@ -10,7 +10,7 @@ namespace Editors
         protected const string COMPOSED_PREFIX = "Comp\t: ";
         protected abstract TypeToggle[] TypeToggles { get; }
 
-        string toDelete;
+        string toDelete = "";
         bool confirmation;
         protected void ShowPossibleBehaviours(UnityEngine.Object dirtyObject)
         {

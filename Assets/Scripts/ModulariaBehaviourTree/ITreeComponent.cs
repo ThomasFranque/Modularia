@@ -44,6 +44,11 @@ namespace ModulariaBehaviourTree
         /// </summary>
         void Kill();
         /// <summary>
+        /// Condition required to perform
+        /// </summary>
+        /// <returns>Condition met</returns>
+        bool Condition();
+        /// <summary>
         /// On completion, this is called, allowing for sequences to know when
         /// they should move on
         /// </summary>

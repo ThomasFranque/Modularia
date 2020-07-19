@@ -10,10 +10,14 @@ namespace ModulariaBehaviourTree
         private const string ERROR_MSG =
             "The created tree is not valid!\nCheck if every component ends in a leaf.";
         private ITreeComponent _main;
+        private ITreeComponent _currentRunning;
         private bool _running;
         // This bool is used to flag the start method
         private bool _runIssuedBeforeStart;
         private bool _startIssued;
+
+        public ITreeComponent CurrentRunning => _currentRunning;
+        
         public void Initialize(TreeSelector main) =>
             Initialize(main as ITreeComponent);
         public void Initialize(TreeSequence main) =>
@@ -43,9 +47,15 @@ namespace ModulariaBehaviourTree
             Debug.Log("Running tree killed.");
         }
 
+        public void SetCurrentRunning(ITreeComponent current)
+        {
+            _currentRunning = current;
+        }
+
         private void OnSetDone()
         {
-            Debug.Log("Tree done.");
+            // Debug.Log("Tree done.");
+            _currentRunning = null;
             StartCoroutine(RunNextFrame());
         }
         private void Run() => _main.Execute();

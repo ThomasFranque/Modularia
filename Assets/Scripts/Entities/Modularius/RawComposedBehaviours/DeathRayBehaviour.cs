@@ -12,7 +12,7 @@ namespace Entities.Modularius.ComposedBehaviours
         public const float CHARGE_UP_TIME = 3f;
         private static GameObject _rayPrefab;
         public override ModulariuType Type => ModulariuType.Shooter;
-        public override float Weight => 0.4f;
+        public override float Weight => 0.1f;
         private DeathRay _ray;
         private WaitForSeconds _delayAfterCompletion;
         private WaitForSeconds _chargeUp;
@@ -51,5 +51,7 @@ namespace Entities.Modularius.ComposedBehaviours
             yield return _delayAfterCompletion;
             Complete();
         }
+
+        public override bool Condition() => Proximity.CheckSight(Player.transform, 32);
     }
 }

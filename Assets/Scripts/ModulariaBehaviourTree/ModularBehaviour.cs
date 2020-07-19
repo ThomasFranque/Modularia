@@ -57,6 +57,7 @@ namespace ModulariaBehaviourTree
             if (!Condition()) return false;
             _caller = caller;
             Execute(onComplete);
+            Tree.SetCurrentRunning(this);
             return true;
         }
 

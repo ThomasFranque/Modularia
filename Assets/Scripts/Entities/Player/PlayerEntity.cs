@@ -10,6 +10,7 @@ namespace Entities
         protected override void OnAwake()
         {
             ReflectionHelper.GetAllSubclasses<ModularBehaviour>();
+            ModifierStats = ModifierStats.PlayerDefaults;
         }
 
         protected override void OnHit(RaycastHit hit, Projectiles.Projectile projectile, float damage)

@@ -28,35 +28,30 @@ namespace ModulariaBehaviourTree
         protected List<ITreeComponent> Parents;
 
         /// <summary>
-        /// Constructor for a default selector
+        /// Constructor for selector
         /// </summary>
-        /// <param name="weight">The weight of the selector</param>
-        /// <param name="condition">next's condition</param>
-        /// <param name="next">component to be called if the 
-        /// condition checks out</param>
-        /// <returns></returns>
-        public TreeSelector(params(Func<bool> condition, ITreeComponent next) [] selections)
-        {
-            _selections = selections;
-            SelectionAction = SequentialSelect;
-        }
-
-        /// <summary>
-        /// Constructor for a random selector that uses weights as a deciding factor
-        /// </summary>
-        /// <param name="weight"></param>
         /// <param name="options"></param>
-        public TreeSelector(params ITreeComponent[] options)
+        public TreeSelector(bool randomized, params ITreeComponent[] options)
         {
             _selections = new(Func<bool> condition, ITreeComponent next) [options.Length];
             for (int i = 0; i < options.Length; i++)
+            {
                 _selections[i].next = options[i];
-            _randomizedSelector = true;
-            SelectionAction = RandomSelect;
+                _selections[i].condition = options[i].Condition;
+            }
 
-            UpdateChances();
+            if (randomized)
+            {
+                _randomizedSelector = true;
+                SelectionAction = RandomSelect;
+
+                UpdateChances();
+            }
+            else
+            {
+                SelectionAction = SequentialSelect;
+            }
         }
-
         public bool Finalize()
         {
             bool flag = true;
@@ -156,8 +151,12 @@ namespace ModulariaBehaviourTree
             _selections =
                 new(Func<bool> condition, ITreeComponent next) [_selections.Length + 1];
             for (int i = 0; i < _selections.Length - 1; i++)
+            {
                 _selections[i].next = temp[i].next;
+                _selections[i].condition = temp[i].condition;
+            }
             _selections[_selections.Length - 1].next = newOption;
+            _selections[_selections.Length - 1].condition = newOption.Condition;
             UpdateChances();
         }
 
@@ -252,6 +251,8 @@ namespace ModulariaBehaviourTree
             for (int i = 0; i < _selections.Length; i++)
                 _selections[i].next.Kill();
         }
+
+        public bool Condition() => true;
 
         private Func<bool> SelectionAction;
         public event Action OnComplete;

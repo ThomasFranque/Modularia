@@ -115,6 +115,8 @@ namespace ModulariaBehaviourTree
             foreach (ITreeComponent c in _sequence)
                 c.Kill();
         }
+        
+        public bool Condition() => true;
 
         public event Action OnComplete;
     }

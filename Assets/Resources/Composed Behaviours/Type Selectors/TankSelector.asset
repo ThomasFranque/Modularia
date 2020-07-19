@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c600c3563ade8a478876860ff753caf, type: 3}
+  m_Name: TankSelector
+  m_EditorClassIdentifier: 
+  _typeToggles:
+  - _name: DeathRayBehaviour
+    _toggle: 0
+    _isRaw: 1
+    _composedBehavior: {fileID: 0}
+  - _name: HealOvertimeBehaviour
+    _toggle: 0
+    _isRaw: 1
+    _composedBehavior: {fileID: 0}
+  - _name: ImpenetrableShieldBehaviour
+    _toggle: 0
+    _isRaw: 1
+    _composedBehavior: {fileID: 0}
+  - _name: PenetrableShieldBehaviour
+    _toggle: 0
+    _isRaw: 1
+    _composedBehavior: {fileID: 0}
+  - _name: SpinBehaviour
+    _toggle: 0
+    _isRaw: 1
+    _composedBehavior: {fileID: 0}
+  - _name: WhirlwindBehaviour
+    _toggle: 0
+    _isRaw: 1
+    _composedBehavior: {fileID: 0}
+  - _name: ImpenetrableHealingZone
+    _toggle: 0
+    _isRaw: 0
+    _composedBehavior: {fileID: 11400000, guid: f2547822ab090974499ec5a3048fd48b,
+      type: 2}
+  - _name: ShieldedDeathRay
+    _toggle: 0
+    _isRaw: 0
+    _composedBehavior: {fileID: 11400000, guid: 430bd9255d121214f933f65bc5909d5d,
+      type: 2}
+  - _name: ShieldedWhirlwind
+    _toggle: 0
+    _isRaw: 0
+    _composedBehavior: {fileID: 11400000, guid: d01972dd5cd2bd749872a9ed6de9269f,
+      type: 2}
+  - _name: ShooterSelector
+    _toggle: 0
+    _isRaw: 0
+    _composedBehavior: {fileID: 11400000, guid: 33c542f570b16a448b03697b90b92892,
+      type: 2}
+  _selectedBehavs: []
+  _name: 
+  _composedType: 0
+  _isRandomSelector: 0

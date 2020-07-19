@@ -9,11 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c600c3563ade8a478876860ff753caf, type: 3}
-  m_Name: Debug
+  m_Script: {fileID: 11500000, guid: f0d510e12a4146a468c811bc5577ffab, type: 3}
+  m_Name: Knife
   m_EditorClassIdentifier: 
   _typeToggles:
   - _name: DeathRayBehaviour
+    _toggle: 0
+    _isRaw: 1
+    _composedBehavior: {fileID: 0}
+  - _name: HealOvertimeBehaviour
     _toggle: 0
     _isRaw: 1
     _composedBehavior: {fileID: 0}
@@ -33,6 +37,11 @@ MonoBehaviour:
     _toggle: 0
     _isRaw: 1
     _composedBehavior: {fileID: 0}
+  - _name: Debug
+    _toggle: 0
+    _isRaw: 0
+    _composedBehavior: {fileID: 11400000, guid: 4770d4917b373e347b2a7261ef3f54f3,
+      type: 2}
   - _name: ShieldedDeathRay
     _toggle: 0
     _isRaw: 0
@@ -42,18 +51,7 @@ MonoBehaviour:
     _toggle: 0
     _isRaw: 0
     _composedBehavior: {fileID: 11400000, guid: 8d957997b913ee94b984f07fb8f2cb05,
-      type: 2}
-  _selectedBehavs:
-  - _name: WhirlwindThenRay
-    _toggle: 0
-    _isRaw: 0
-    _composedBehavior: {fileID: 11400000, guid: 8d957997b913ee94b984f07fb8f2cb05,
-      type: 2}
-  - _name: ShieldedDeathRay
-    _toggle: 0
-    _isRaw: 0
-    _composedBehavior: {fileID: 11400000, guid: 430bd9255d121214f933f65bc5909d5d,
       type: 2}
   _name: 
-  _composedType: 0
-  _isRandomSelector: 0
+  _type: 0
+  _influence: 0.5

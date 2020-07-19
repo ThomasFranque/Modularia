@@ -8,6 +8,7 @@ namespace Entities
     public abstract class Entity : MonoBehaviour, IHittable
     {
         [SerializeField] private float _maxHp = 20;
+        [SerializeField] private ModifierStats _modStats = default;
         private float _currentHP;
         public bool Invulnerable { get; private set; }
         public Entity AttachedEntity => this;
@@ -19,6 +20,12 @@ namespace Entities
         {
             get => _currentHP;
             private set => _currentHP = Mathf.Clamp(value, 0, MaxHp);
+        }
+
+        public ModifierStats ModifierStats
+        {
+            get => _modStats;
+            protected set => _modStats = value;
         }
 
         public float MaxHp => _maxHp;
@@ -33,16 +40,22 @@ namespace Entities
 
         public void Hit(RaycastHit hit, Projectile projectile, float damage)
         {
-            OnHit(hit, projectile, damage);
+            OnHit(hit, projectile, damage - (damage * ModifierStats.Def));
         }
 
         public void Hit(float damage)
         {
-            OnHit(damage);
+            OnHit(damage - (damage * ModifierStats.Def));
         }
 
-        protected virtual void OnHit(RaycastHit hit, Projectile projectile, float damage) { DealDamage(damage); }
-        protected virtual void OnHit(float damage) { DealDamage(damage); }
+        protected virtual void OnHit(RaycastHit hit, Projectile projectile, float damage)
+        {
+            DealDamage(damage);
+        }
+        protected virtual void OnHit(float damage)
+        {
+            DealDamage(damage);
+        }
         protected virtual void OnAwake() { }
         protected virtual void DeathTriggered() { }
         private void Death()

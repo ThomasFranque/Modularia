@@ -1139,7 +1139,12 @@ PrefabInstance:
     - target: {fileID: 5306537626896118099, guid: 46d2311a528c4f54e843e85a9b2c2a9a,
         type: 3}
       propertyPath: m_Name
-      value: Tank Core Variant
+      value: Tank
+      objectReference: {fileID: 0}
+    - target: {fileID: 8043378995723249387, guid: 46d2311a528c4f54e843e85a9b2c2a9a,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46d2311a528c4f54e843e85a9b2c2a9a, type: 3}
