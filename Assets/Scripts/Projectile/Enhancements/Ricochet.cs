@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Projectiles.Enhancements;
+﻿using Projectiles.Enhancements;
 using UnityEngine;
 
 public class Ricochet : ProjectileEnhancement

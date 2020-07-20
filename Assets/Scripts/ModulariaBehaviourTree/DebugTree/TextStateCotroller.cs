@@ -7,8 +7,8 @@ namespace ModulariaBehaviourTree.Debugging
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.F1)) DebugText.ShowAll();
-            else if (Input.GetKeyUp(KeyCode.F1)) DebugText.HideAll();
+            if (Input.GetKeyDown(KeyCode.B)) DebugText.ShowAll();
+            else if (Input.GetKeyUp(KeyCode.B)) DebugText.HideAll();
         }
     }
 }
