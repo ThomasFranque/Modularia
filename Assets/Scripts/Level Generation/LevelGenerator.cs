@@ -7,9 +7,8 @@ namespace LevelGeneration
     public class LevelGenerator : MonoBehaviour
     {
         // To be moved to a scriptable obj vvvvvv
-        private const float DIRECTION_CHANGE_CHANCE = 0.4f;
+        private const float DIRECTION_CHANGE_CHANCE = 0.1f;
         private const float NEW_BRANCH_CHANCE = 0.2f;
-        private const int MAX_BRANCH_LENGTH = 20;
         // ^^^^^^
 
         private static readonly Vector3Int Forward = new Vector3Int(0, 0, 1);
@@ -19,7 +18,7 @@ namespace LevelGeneration
         private static readonly Vector3Int[] AllPossibleDirections =
             new Vector3Int[4] { Forward, Backwards, Left, Right };
 
-        private List<Vector3Int> _takenLocation;
+        private List<Vector3Int> _takenLocations;
 
         private Vector3Int GetRandomDirection() =>
             AllPossibleDirections[Random.Range(0, AllPossibleDirections.Length)];
@@ -36,15 +35,21 @@ namespace LevelGeneration
 
         public void CreateNewLevel()
         {
-            _takenLocation = new List<Vector3Int>();
+            /*
+            How this works:
+            The Generate() method will generate the main path recursively.
+            When the main path is complete, for every created room, it will try 
+            to create a new branch.
+            */
+            _takenLocations = new List<Vector3Int>();
             Branch mainBranch = new Branch();
 
-            _takenLocation.Add(Vector3Int.zero);
+            _takenLocations.Add(Vector3Int.zero);
 
-            Generate(Vector3Int.zero, Forward);
+            Generate(Vector3Int.zero, Forward, 20);
         }
 
-        private void Generate(Vector3Int previousLoc, Vector3Int previousDir, int count = 0)
+        private void Generate(Vector3Int previousLoc, Vector3Int previousDir, int maxLength, int count = 0, bool canHaveBranch = true)
         {
             Vector3Int newLoc = previousLoc + previousDir;
             Vector3Int newDir = previousDir;
@@ -70,21 +75,16 @@ namespace LevelGeneration
                 }
             }
 
-            // Try to create new branch
-            if (HasOpenNeighbor(newLoc) && NewBranchRoll)
-                Generate(newLoc, newDir, 0);
-
             // If the selection was possible
-            if (selected && count < MAX_BRANCH_LENGTH)
+            if (selected && count < maxLength)
             {
-                _takenLocation.Add(newLoc);
-                Generate(newLoc, newDir, count + 1);
+                _takenLocations.Add(newLoc);
+                Generate(newLoc, newDir, maxLength, count + 1);
+
+                // Try to create new branch
+                if (canHaveBranch && HasOpenNeighbor(newLoc) && NewBranchRoll)
+                    Generate(newLoc, newDir, 5, 0, false);
             }
-        }
-
-        private void GenerateNewRoom(Vector3Int from)
-        {
-
         }
 
         // Based on the Fisher–Yates shuffle
@@ -111,14 +111,14 @@ namespace LevelGeneration
         }
 
         private bool PositionOccupied(Vector3Int position) =>
-            _takenLocation.Contains(position);
+            _takenLocations.Contains(position);
 
         private void OnDrawGizmos()
         {
-            if (_takenLocation != default)
+            if (_takenLocations != default)
             {
                 Vector3Int previous = Vector3Int.zero;
-                foreach (Vector3Int v in _takenLocation)
+                foreach (Vector3Int v in _takenLocations)
                 {
                     Gizmos.color = Color.white;
                     Gizmos.DrawWireCube(v * 30, new Vector3(30, 30, 30));
