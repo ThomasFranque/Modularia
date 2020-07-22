@@ -38,7 +38,7 @@ namespace LevelGeneration.Individuals
             transform.position = position * ROOM_SIZE;
             ParentBranch = parentBranch;
             RoomGrid = gameObject.AddComponent<Grid>();
-            RoomGrid.Generate();
+            RoomGrid.Generate(this);
         }
 
         public void OpenConnections()
