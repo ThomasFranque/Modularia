@@ -1,24 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using LevelGeneration.Individuals;
+using Pathfinding;
 using UnityEngine;
+using Random = UnityEngine.Random;
+using Grid = Pathfinding.Grid;
 
 namespace LevelGeneration
 {
     public class LevelGenerator : MonoBehaviour
     {
         // To be moved to a scriptable obj vvvvvv
-        private const float DIRECTION_CHANGE_CHANCE = 0.1f;
-        private const float NEW_BRANCH_CHANCE = 0.2f;
+        private const float DIRECTION_CHANGE_CHANCE = 0.5f;
+        private const float NEW_BRANCH_CHANCE = 0.3f;
+        [SerializeField] private LayerMask _pathfindingObstacles = default;
         // ^^^^^^
 
-        private static readonly Vector3Int Forward = new Vector3Int(0, 0, 1);
-        private static readonly Vector3Int Backwards = new Vector3Int(0, 0, -1);
-        private static readonly Vector3Int Right = new Vector3Int(1, 0, 0);
-        private static readonly Vector3Int Left = new Vector3Int(-1, 0, 0);
+        public static readonly Vector3Int Forward = new Vector3Int(0, 0, 1);
+        public static readonly Vector3Int Backwards = new Vector3Int(0, 0, -1);
+        public static readonly Vector3Int Right = new Vector3Int(1, 0, 0);
+        public static readonly Vector3Int Left = new Vector3Int(-1, 0, 0);
         private static readonly Vector3Int[] AllPossibleDirections =
             new Vector3Int[4] { Forward, Backwards, Left, Right };
 
         private List<Vector3Int> _takenLocations;
+        private Dictionary<Vector3Int, Room> _allRooms;
+        private Branch _currentMainBranch;
 
         private Vector3Int GetRandomDirection() =>
             AllPossibleDirections[Random.Range(0, AllPossibleDirections.Length)];
@@ -30,26 +37,55 @@ namespace LevelGeneration
 
         private void Awake()
         {
+            Grid.SetLayermask(_pathfindingObstacles);
             CreateNewLevel();
         }
 
-        public void CreateNewLevel()
+        public void CreateNewLevel(int seed = default)
         {
             /*
             How this works:
             The Generate() method will generate the main path recursively.
             When the main path is complete, for every created room, it will try 
             to create a new branch.
+            When all the positions are in place, tell the branches to spawn the
+            rooms.
             */
+
+            // Set seed
+            if (seed == default)
+                seed = Random.Range(int.MinValue, int.MaxValue);
+            else
+                Random.InitState(seed);
+
+            // Initialize collections
             _takenLocations = new List<Vector3Int>();
+            _allRooms = new Dictionary<Vector3Int, Room>();
+
+            // Generate
             Branch mainBranch = new Branch();
-
             _takenLocations.Add(Vector3Int.zero);
+            mainBranch.AddNewRoomPosition(Vector3Int.zero);
+            Generate(mainBranch, Vector3Int.zero, Forward, 30, 0, true);
 
-            Generate(Vector3Int.zero, Forward, 20);
+            // Set parents
+            Transform parentTransform =
+                mainBranch.SpawnRooms(_allRooms);
+            parentTransform.name = "Main Branch";
+
+            // Open doors
+            for (int i = 0; i < _takenLocations.Count; i++)
+            {
+                _allRooms[_takenLocations[i]]
+                    .OpenConnections();
+            }
+
+            // Finalize
+            _currentMainBranch = mainBranch;
+            GC.Collect();
         }
 
-        private void Generate(Vector3Int previousLoc, Vector3Int previousDir, int maxLength, int count = 0, bool canHaveBranch = true)
+        private void Generate(Branch containingBranch, Vector3Int previousLoc, Vector3Int previousDir, int maxLength, int count, bool canHaveBranch)
         {
             Vector3Int newLoc = previousLoc + previousDir;
             Vector3Int newDir = previousDir;
@@ -79,11 +115,16 @@ namespace LevelGeneration
             if (selected && count < maxLength)
             {
                 _takenLocations.Add(newLoc);
-                Generate(newLoc, newDir, maxLength, count + 1);
+                containingBranch.AddNewRoomPosition(newLoc);
+                Generate(containingBranch, newLoc, newDir, maxLength, count + 1, canHaveBranch);
 
                 // Try to create new branch
                 if (canHaveBranch && HasOpenNeighbor(newLoc) && NewBranchRoll)
-                    Generate(newLoc, newDir, 5, 0, false);
+                {
+                    Branch subBranch = new Branch(containingBranch);
+                    containingBranch.AddNewSubBranch(subBranch);
+                    Generate(subBranch, newLoc, newDir, maxLength / 4, 0, false);
+                }
             }
         }
 
@@ -115,18 +156,8 @@ namespace LevelGeneration
 
         private void OnDrawGizmos()
         {
-            if (_takenLocations != default)
-            {
-                Vector3Int previous = Vector3Int.zero;
-                foreach (Vector3Int v in _takenLocations)
-                {
-                    Gizmos.color = Color.white;
-                    Gizmos.DrawWireCube(v * 30, new Vector3(30, 30, 30));
-                    Gizmos.color = Color.green;
-                    Gizmos.DrawLine(previous * 30, v * 30);
-                    previous = v;
-                }
-            }
+            if (_currentMainBranch != default)
+                _currentMainBranch.RenderGizmos();
         }
     }
 }
