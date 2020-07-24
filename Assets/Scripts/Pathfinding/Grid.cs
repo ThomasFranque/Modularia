@@ -46,8 +46,6 @@ namespace Pathfinding
             GC.Collect();
         }
 
-        Vector3[] path = new Vector3[0];
-
         private void AssignNeighbors()
         {
             foreach (Tile t in _tiles)
@@ -91,6 +89,7 @@ namespace Pathfinding
             int iteration = 0;
             while (openTiles.Count > 0)
             {
+                if (iteration == RoomSize * RoomSize) break;
                 iteration++;
                 Tile current = openTiles[0];
 
@@ -114,7 +113,7 @@ namespace Pathfinding
 
                     neighbor.UpdateState();
 
-                    if (neighbor.Obstructed || !notYetAdded) continue;
+                    if ((neighbor.Obstructed && neighbor != endTile) || !notYetAdded) continue;
 
                     float newBeta = current.Beta + current.DistanceTo(neighbor.Position);
                     if (newBeta < neighbor.Beta || notYetAdded)
@@ -137,7 +136,7 @@ namespace Pathfinding
             Tile current = start;
             int maxIters = RoomSize * RoomSize + 1;
             int iters = 0;
-            while (current != end)
+            while (current != end && current != null)
             {
                 positions.Add(current.Position);
                 //Debug.Log(current.CollectionIndex.x + " , " + current.CollectionIndex.z);
@@ -188,17 +187,6 @@ namespace Pathfinding
                 for (int x = 0; x < RoomSize; x++)
                     for (int z = 0; z < RoomSize; z++)
                         _tiles[x, z].DrawGizmos();
-            }
-
-            if (path.Length > 0)
-            {
-                Vector3 prev = path[0];
-                for (int i = 1; i < path.Length; i++)
-                {
-                    Gizmos.color = Color.magenta;
-                    Gizmos.DrawLine(prev, path[i]);
-                    prev = path[i];
-                }
             }
         }
     }

@@ -41,7 +41,7 @@ namespace Entities.Modularius.ComposedBehaviours
         private IEnumerator CShootBeam()
         {
             LookAtPlayer.StartLooking(Player.transform, FollowType.Lerp, 2f);
-            Follow.StartFollowing(Player.transform, FollowType.Linear, 2);
+            Follow.StartFollowing(Player.transform, FollowType.Linear, AttachedEntity.CurrentRoom.RoomGrid, 2);
             yield return _chargeUp;
             LookAtPlayer.StartLooking(Player.transform, FollowType.Linear, 0.25f);
             Follow.Speed /= 2;

@@ -1,6 +1,8 @@
 ﻿using System;
 using Entities.Modularius.ComposedBehaviours;
+using Pathfinding;
 using UnityEngine;
+using Grid = Pathfinding.Grid;
 
 namespace Entities.Modularius.BaseBehaviours
 {
@@ -10,6 +12,9 @@ namespace Entities.Modularius.BaseBehaviours
         [SerializeField, ReadOnly] private FollowType _type = default;
         [SerializeField, ReadOnly] private float _speed = default;
         public float Speed { get => _speed; set => _speed = value; }
+        private Grid _grid;
+
+        private Vector3[] _path;
 
         private void Awake()
         {
@@ -18,12 +23,14 @@ namespace Entities.Modularius.BaseBehaviours
 
         private void LateUpdate()
         {
+            _path = _grid.GetPath(transform.position, _target.position);
             FollowAction.Invoke();
         }
 
         private void LerpFollow()
         {
-            Vector3 targetPosition = _target.transform.position;
+            if (_path.Length == 0) return;
+            Vector3 targetPosition = _path[0];
             targetPosition.y = transform.position.y;
             transform.position = Vector3.Lerp(transform.position,
                 targetPosition,
@@ -32,17 +39,19 @@ namespace Entities.Modularius.BaseBehaviours
 
         private void LinearFollow()
         {
-            Vector3 targetPosition = _target.transform.position;
+            if (_path.Length == 0) return;
+            Vector3 targetPosition = _path[0];
             targetPosition.y = transform.position.y;
             transform.position =
                 Vector3.MoveTowards(transform.position, targetPosition, _speed * Time.deltaTime);
         }
 
-        public void StartFollowing(Transform target, FollowType type, float speed = 2.0f)
+        public void StartFollowing(Transform target, FollowType type, Grid pathfindGrid, float speed = 2.0f)
         {
             _target = target;
             _speed = speed;
             _type = type;
+            _grid = pathfindGrid;
 
             if (type == FollowType.Lerp)
                 FollowAction = LerpFollow;
@@ -59,5 +68,18 @@ namespace Entities.Modularius.BaseBehaviours
 
         private Action FollowAction;
 
+        private void OnDrawGizmos()
+        {
+            if (_path != null && _path.Length > 0)
+            {
+                Vector3 prev = _path[0];
+                for (int i = 1; i < _path.Length; i++)
+                {
+                    Gizmos.color = Color.magenta;
+                    Gizmos.DrawLine(prev, _path[i]);
+                    prev = _path[i];
+                }
+            }
+        }
     }
 }

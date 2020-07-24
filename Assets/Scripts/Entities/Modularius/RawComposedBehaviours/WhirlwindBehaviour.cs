@@ -35,7 +35,7 @@ namespace Entities.Modularius.ComposedBehaviours
 
         private IEnumerator CWhirlind()
         {
-            Follow.StartFollowing(Player.transform, FollowType.Lerp, 1.3f);
+            Follow.StartFollowing(Player.transform, FollowType.Lerp, AttachedEntity.CurrentRoom.RoomGrid, 1.3f);
             LookAtPlayer.StartLooking(Player.transform, FollowType.Lerp, 3f);
             _whirlwindFX.StartSpin();
             yield return new WaitForSeconds(Random.Range(4.0f, 8.0f));

@@ -35,7 +35,7 @@ namespace Entities.Modularius.ComposedBehaviours
 
         private IEnumerator CSpin()
         {
-            Follow.StartFollowing(Player.transform, FollowType.Linear);
+            Follow.StartFollowing(Player.transform, FollowType.Linear, AttachedEntity.CurrentRoom.RoomGrid);
             yield return new WaitUntil(() => HitCondition());
             _spinFX.DewIt();
             yield return _delayAfterSpin;
