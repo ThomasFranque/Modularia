@@ -260,7 +260,7 @@ GameObject:
   m_Component:
   - component: {fileID: 161246953320222301}
   - component: {fileID: 8043378995723249387}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Template Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}

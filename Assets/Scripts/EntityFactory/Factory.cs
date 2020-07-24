@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 namespace EntityFactory
 {
-    public class Factory : MonoBehaviour
+    public static class Factory
     {
         private const string PREFAB_PARTS_PATH = "Prefabs/Modularius Parts/";
         private const string LIMBS_PATH = PREFAB_PARTS_PATH + "Limbs/";
@@ -24,12 +24,11 @@ namespace EntityFactory
         private static GameObject _TankCore;
         private static ModulariuPartProfile[] _CommonPartProfiles;
         private static ModulariuPartProfile[] _RarePartProfiles;
-        private static bool _Loaded;
 
         // To be changed to be dynamic using the time spent on the level
-        private float DifficultyMod => 1f;
-        private float RarePartChance => BASE_RARE_PART_CHANCE * (DifficultyMod / 1.5f);
-        private float NewLimbChance => BASE_NEW_PART_CHANCE * (DifficultyMod);
+        private static float DifficultyMod => 1f;
+        private static float RarePartChance => BASE_RARE_PART_CHANCE * (DifficultyMod / 1.5f);
+        private static float NewLimbChance => BASE_NEW_PART_CHANCE * (DifficultyMod);
 
         private static void Load()
         {
@@ -47,24 +46,21 @@ namespace EntityFactory
             _RarePartProfiles =
                 Resources.LoadAll<ModulariuPartProfile>(PARTS_PROFILE_PATH +
                     "Rare/");
-
-            _Loaded = true;
         }
 
         private static GameObject LoadPrefab(string path) =>
             Resources.Load<GameObject>(path);
 
-        private void Awake()
+        static Factory()
         {
-            if (!_Loaded) Factory.Load();
-            GenerateNew();
+            Load();
         }
 
         /// <summary>
         /// Generates a new Modulariu
         /// </summary>
         /// <returns>The main core</returns>
-        private Core GenerateNew()
+        public static Core GenerateNew()
         {
             (Core core, ModulariuType type) coreAndType = GenerateNewCore();
             (Limb limb, ModulariuType type) [] limbsAndType =
@@ -101,7 +97,6 @@ namespace EntityFactory
                 .FactorySetup(coreAndType.type, mods, coreAndType.core, limbs);
 
             TreeFactory.GenerateTree(coreAndType.core);
-            coreAndType.core.TreeCreationFinished();
             return coreAndType.core;
         }
 
@@ -109,12 +104,12 @@ namespace EntityFactory
         /// Generates a new individual core
         /// </summary>
         /// <returns>Generated core</returns>
-        private(Core, ModulariuType) GenerateNewCore()
+        private static(Core, ModulariuType) GenerateNewCore()
         {
             ModulariuType coreType = GetRandomType();
             GameObject coreObject =
                 GetPrefabFromType(coreType, _ShooterCore, _BrawlerCore, _TankCore);
-            Core core = Instantiate(coreObject).AddComponent<Core>();
+            Core core = GameObject.Instantiate(coreObject).AddComponent<Core>();
             return (core, coreType);
         }
 
@@ -122,14 +117,14 @@ namespace EntityFactory
         /// Generates an individual limb
         /// </summary>
         /// <returns>Generated limb</returns>
-        private(Limb, ModulariuType) GenerateNewLimb()
+        private static(Limb, ModulariuType) GenerateNewLimb()
         {
             ModulariuPartProfile profile = GetRandomProfile();
             ModifierStats stats = ModifierStats.GetRandomized(DifficultyMod, profile.Type);
             ModulariuType limbType = profile.Type;
             GameObject limbObject =
                 GetPrefabFromType(limbType, _ShooterLimb, _BrawlerLimb, _TankLimb);
-            Limb limb = Instantiate(limbObject).AddComponent<Limb>();
+            Limb limb = GameObject.Instantiate(limbObject).AddComponent<Limb>();
             limb.SetProfile(profile);
             return (limb, limbType);
         }
@@ -138,7 +133,7 @@ namespace EntityFactory
         /// Gets a random profile, taking int account common and rare chances
         /// </summary>
         /// <returns>Random profile</returns>
-        private ModulariuPartProfile GetRandomProfile()
+        private static ModulariuPartProfile GetRandomProfile()
         {
             float roll = Random.Range(.0f, 1.0f);
             if (roll <= RarePartChance)
@@ -155,7 +150,7 @@ namespace EntityFactory
         /// Gets a random modulariu type
         /// </summary>
         /// <returns>Random type</returns>
-        private ModulariuType GetRandomType() =>
+        private static ModulariuType GetRandomType() =>
             (ModulariuType) Random.Range(0, 3);
 
         /// <summary>
@@ -167,7 +162,7 @@ namespace EntityFactory
         /// <param name="tank">Target shooter prefab</param>
         /// <returns>One of the given prefabs corresponding 
         /// to the given type</returns>
-        private GameObject GetPrefabFromType(ModulariuType type,
+        private static GameObject GetPrefabFromType(ModulariuType type,
             GameObject shooter, GameObject brawler, GameObject tank)
         {
             switch (type)

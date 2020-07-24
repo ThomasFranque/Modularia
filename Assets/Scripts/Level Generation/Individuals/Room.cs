@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using Grid = Pathfinding.Grid;
+using Pathfinding;
+using TMPro;
 
 namespace LevelGeneration.Individuals
 {
@@ -14,17 +16,19 @@ namespace LevelGeneration.Individuals
         [SerializeField] private GameObject _backDoor = default;
         [SerializeField] private GameObject _rightDoor = default;
         [SerializeField] private GameObject _leftDoor = default;
-        [Header("Doors")]
-        [SerializeField] private GameObject _frontDestructable = default;
-        [SerializeField] private GameObject _backDestructable = default;
-        [SerializeField] private GameObject _rightDestructable = default;
-        [SerializeField] private GameObject _leftDestructable = default;
+
+        [Space]
+
+        [SerializeField] private TextMeshPro _roomInfo = default;
+        [SerializeField] private GameObject[] _propsPrefabs = default;
         [SerializeField, ReadOnly] private bool _isBranchStart = default;
         [SerializeField, ReadOnly] private bool _isBranchEnd = default;
 
         private Vector3Int _position;
+        private(bool f, bool b, bool l, bool r) _doorStates;
         public Branch ParentBranch { get; private set; }
         public Grid RoomGrid { get; private set; }
+        public bool Initialized { get; private set; }
 
         public bool IsBranchStart => _isBranchStart;
         public bool IsBranchEnd => _isBranchEnd;
@@ -39,6 +43,9 @@ namespace LevelGeneration.Individuals
             ParentBranch = parentBranch;
             RoomGrid = gameObject.AddComponent<Grid>();
             RoomGrid.Generate(this);
+            SpawnProps();
+            _roomInfo.text = position.ToString();;
+            Initialized = true;
         }
 
         public void OpenConnections()
@@ -86,6 +93,7 @@ namespace LevelGeneration.Individuals
                     IsBranchStart;
             }
 
+            _doorStates = (frontOpen, backOpen, leftOpen, rightOpen);
             OpenDoors(frontOpen, backOpen, leftOpen, rightOpen);
         }
 
@@ -98,6 +106,35 @@ namespace LevelGeneration.Individuals
             _backDoor.SetActive(!back);
             _leftDoor.SetActive(!left);
             _rightDoor.SetActive(!right);
+        }
+
+        private void SpawnProps()
+        {
+            int toSpawn = Random.Range(0, 4);
+
+            for (int i = 0; i < toSpawn; i++)
+            {
+                Vector3 position;
+                Tile t;
+                t = RoomGrid.GetRandomTile(false);
+                position = t.Position;
+                GameObject spawned =
+                    Instantiate(
+                        _propsPrefabs[Random.Range(0, _propsPrefabs.Length)],
+                        transform);
+                position.y = spawned.transform.position.y;
+                spawned.transform.position = position;
+            }
+        }
+
+        public void CloseDoors()
+        {
+            OpenDoors(false, false, false, false);
+        }
+
+        public void OpenDoors()
+        {
+            OpenDoors(_doorStates.f, _doorStates.b, _doorStates.l, _doorStates.r);
         }
     }
 }

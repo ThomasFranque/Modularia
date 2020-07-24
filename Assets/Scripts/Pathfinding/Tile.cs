@@ -46,7 +46,7 @@ namespace Pathfinding
         }
 
         public float DistanceTo(Vector3 position) =>
-            Vector3.Distance(Position, position);
+            Mathf.RoundToInt(Vector3.Distance(Position, position));
 
         public bool IsWorseThan(Tile other)
         {

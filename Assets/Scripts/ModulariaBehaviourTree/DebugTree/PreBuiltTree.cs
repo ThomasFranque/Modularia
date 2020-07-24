@@ -12,7 +12,7 @@ namespace ModulariaBehaviourTree.Debugging
             for (int i = 0; i < _behaviours.Length; i++)
                 sequence.AddNew(_behaviours[i]);
 
-            GetComponent<BehaviourTree>().Initialize(sequence);
+            GetComponent<BehaviourTree>().Initialize(sequence, false);
         }
     }
 }

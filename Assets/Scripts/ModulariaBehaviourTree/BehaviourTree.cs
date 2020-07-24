@@ -18,26 +18,36 @@ namespace ModulariaBehaviourTree
 
         public ITreeComponent CurrentRunning => _currentRunning;
 
-        public void Initialize(TreeSelector main) =>
-            Initialize(main as ITreeComponent);
-        public void Initialize(TreeSequence main) =>
-            Initialize(main as ITreeComponent);
-        private void Initialize(ITreeComponent main)
+        public void Initialize(TreeSelector main, bool suppress) =>
+            Initialize(main as ITreeComponent, suppress);
+        public void Initialize(TreeSequence main, bool suppress) =>
+            Initialize(main as ITreeComponent, suppress);
+        private void Initialize(ITreeComponent main, bool suppress)
         {
             _main = main;
             _main.Setup(this, default);
             if (!_main.Finalize()) throw new System.Exception(ERROR_MSG);
 
-            if (_startIssued)
+            if (_startIssued && !suppress)
                 Run();
             else
-                _runIssuedBeforeStart = true;
+                _runIssuedBeforeStart = !suppress;
         }
 
         private void Start()
         {
             _startIssued = true;
             if (_runIssuedBeforeStart) Run();
+        }
+
+        public void RunTree()
+        {
+            if (nextFrameCor != default) return;
+            
+            if (_startIssued)
+                Run();
+            else
+                _runIssuedBeforeStart = true;
         }
 
         public void SetDone() => OnSetDone();

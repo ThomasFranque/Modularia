@@ -19,8 +19,8 @@ TagManager:
   - Projectile
   - Obstacle
   - Room Floor
-  - 
-  - 
+  - Enemy
+  - Room Ceiling
   - 
   - 
   - 

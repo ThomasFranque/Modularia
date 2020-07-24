@@ -59,7 +59,7 @@ namespace Weapons
                 GameObject magObj = new GameObject("Magazine");
                 magObj.transform.SetParent(transform);
                 _mag = magObj.AddComponent<Magazine>();
-                _mag.Setup(this, 15, _shootDelay * 2f);
+                _mag.Setup(this, 15, _shootDelay * 1.5f);
             }
         }
 

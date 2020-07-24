@@ -1,4 +1,5 @@
 ﻿using System;
+using LevelGeneration.Individuals;
 using Projectiles;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ namespace Entities
         private Collider _col;
         public Collider AttachedCollider => _col;
         private bool _dead;
+
+        public Room CurrentRoom { get; set; }
 
         public float CurrentHP
         {
@@ -69,7 +72,6 @@ namespace Entities
             if (_dead || (Invulnerable && !overrideInvulnerability)) return;
 
             CurrentHP -= damage;
-            Debug.Log(CurrentHP);
 
             if (CurrentHP <= 0)
                 Death();

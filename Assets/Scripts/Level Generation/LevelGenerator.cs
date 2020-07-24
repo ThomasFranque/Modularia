@@ -14,6 +14,7 @@ namespace LevelGeneration
         private const float DIRECTION_CHANGE_CHANCE = 0.5f;
         private const float NEW_BRANCH_CHANCE = 0.3f;
         [SerializeField] private LayerMask _pathfindingObstacles = default;
+        [SerializeField] private GameObject _levelFinishPrefab = default;
         // ^^^^^^
 
         public static readonly Vector3Int Forward = new Vector3Int(0, 0, 1);
@@ -26,6 +27,8 @@ namespace LevelGeneration
         private List<Vector3Int> _takenLocations;
         private Dictionary<Vector3Int, Room> _allRooms;
         private Branch _currentMainBranch;
+
+        private bool _exitPlaced;
 
         private Vector3Int GetRandomDirection() =>
             AllPossibleDirections[Random.Range(0, AllPossibleDirections.Length)];
@@ -66,6 +69,7 @@ namespace LevelGeneration
             Branch mainBranch = new Branch();
             _takenLocations.Add(Vector3Int.zero);
             mainBranch.AddNewRoomPosition(Vector3Int.zero);
+            _exitPlaced = false;
             Generate(mainBranch, Vector3Int.zero, Forward, 30, 0, true);
 
             // Set parents
@@ -118,6 +122,12 @@ namespace LevelGeneration
                 containingBranch.AddNewRoomPosition(newLoc);
                 Generate(containingBranch, newLoc, newDir, maxLength, count + 1, canHaveBranch);
 
+                if (!_exitPlaced)
+                {
+                    _exitPlaced = true;
+                    PlaceExit(newLoc);
+                }
+
                 // Try to create new branch
                 if (canHaveBranch && HasOpenNeighbor(newLoc) && NewBranchRoll)
                 {
@@ -126,6 +136,13 @@ namespace LevelGeneration
                     Generate(subBranch, newLoc, newDir, maxLength / 4, 0, false);
                 }
             }
+        }
+
+        private void PlaceExit(Vector3Int position)
+        {
+            GameObject exit =
+                Instantiate(_levelFinishPrefab);
+            exit.transform.position = position * Room.ROOM_SIZE;
         }
 
         // Based on the Fisher–Yates shuffle

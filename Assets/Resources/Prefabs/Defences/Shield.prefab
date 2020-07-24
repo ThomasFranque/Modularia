@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4117443342587127598}
   - component: {fileID: 6400896513056212887}
   - component: {fileID: 1468782968355053064}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4714,3 +4714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 50
+  _modStats:
+    _damage: 0
+    _speed: 0
+    _defense: 0

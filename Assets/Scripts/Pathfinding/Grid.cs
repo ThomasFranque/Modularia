@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using LevelGeneration.Individuals;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Pathfinding
 {
     public class Grid : MonoBehaviour
     {
-        [SerializeField] GameObject DEBUG_TARGET = default;
-        [SerializeField] GameObject DEBUG_SUBJECT = default;
-
         public static LayerMask ObstaclesMask { get; private set; }
         private static int RoomSize => Room.ROOM_SIZE;
 
@@ -49,11 +47,6 @@ namespace Pathfinding
         }
 
         Vector3[] path = new Vector3[0];
-        private void Update()
-        {
-            if (DEBUG_TARGET != null && DEBUG_SUBJECT != null)
-                path = GetPath(DEBUG_SUBJECT.transform.position, DEBUG_TARGET.transform.position);
-        }
 
         private void AssignNeighbors()
         {
@@ -119,6 +112,8 @@ namespace Pathfinding
                     Tile neighbor = current.Neighbors[i];
                     bool notYetAdded = !openTiles.Contains(neighbor);
 
+                    neighbor.UpdateState();
+
                     if (neighbor.Obstructed || !notYetAdded) continue;
 
                     float newBeta = current.Beta + current.DistanceTo(neighbor.Position);
@@ -166,6 +161,20 @@ namespace Pathfinding
             z += halfRoomSize;
 
             tile = _tiles[x, z];
+        }
+
+        public Tile GetRandomTile(bool obstructed)
+        {
+            // https://stackoverflow.com/questions/17248687/picking-a-random-element-from-a-multidimensional-array
+            int index1;
+            int index2;
+            do
+            {
+                index1 = Random.Range(0, _tiles.GetLength(0));
+                index2 = Random.Range(0, _tiles.GetLength(1));
+                _tiles[index1, index2].UpdateState();
+            } while (_tiles[index1, index2].Obstructed != obstructed);
+            return _tiles[index1, index2];
         }
 
         private bool IndexInsideBounds(int x, int z) =>

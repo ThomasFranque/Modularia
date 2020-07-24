@@ -36,7 +36,10 @@ namespace Entities.Modularius.Parts
 
         private void DamageCore(float receivedDmg)
         {
-            _core.DealIndividualDamage(receivedDmg / 4);
+            // it has a ? because of the multishot upgrade, shots can hit at the
+            // same time and the core die before the other ones have a chance
+            // to deal damage, same goes for explosions
+            _core?.DealIndividualDamage(receivedDmg / 4);
         }
     }
 }

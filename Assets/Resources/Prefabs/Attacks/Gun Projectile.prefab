@@ -177,7 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hurtableMask:
     serializedVersion: 2
-    m_Bits: 3073
+    m_Bits: 31745
   _trailRenderer: {fileID: 159439585502768736}
   _enhancements:
   - {fileID: 7394478912071970549}
@@ -188,7 +188,7 @@ MonoBehaviour:
   _mainParticles: {fileID: 6994231217700366045}
   _hitMasks:
     serializedVersion: 2
-    m_Bits: 3073
+    m_Bits: 31745
 --- !u!114 &7394478912071970549
 MonoBehaviour:
   m_ObjectHideFlags: 0

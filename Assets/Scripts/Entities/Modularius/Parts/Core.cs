@@ -71,7 +71,7 @@ namespace Entities.Modularius.Parts
             float dividedLimbDamage = (receivedDmg / 4) / _limbs.Length;
 
             for (int i = 0; i < _limbs.Length; i++)
-                _limbs[i].DealIndividualDamage(dividedLimbDamage);
+                _limbs[i]?.DealIndividualDamage(dividedLimbDamage);
         }
 
         protected override void OnTreeFinished()

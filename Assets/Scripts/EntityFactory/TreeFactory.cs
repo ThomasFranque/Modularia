@@ -252,7 +252,8 @@ namespace EntityFactory
             }
 
             // Initialize the tree with the default selector
-            tree.Initialize(mainSelector);
+            tree.Initialize(mainSelector, true);
+            core.TreeCreationFinished();
         }
 
         private static ITreeComponent CreateITreeComponentFromComposed(Core core,

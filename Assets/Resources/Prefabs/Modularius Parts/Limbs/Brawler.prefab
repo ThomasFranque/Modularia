@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 1843113222510420562}
   - component: {fileID: 2634447526468356245}
   - component: {fileID: 8921029241840462925}
-  m_Layer: 0
-  m_Name: Cylinder
+  m_Layer: 13
+  m_Name: Brawler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

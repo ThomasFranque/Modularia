@@ -811,7 +811,7 @@ GameObject:
   - component: {fileID: 2657507384261656684}
   - component: {fileID: 8059750682958064167}
   - component: {fileID: 2542136461121319843}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Benny, The debug dummy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1009,7 +1009,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 20
-  _profile: {fileID: 0}
+  _modStats:
+    _damage: 0
+    _speed: 0
+    _defense: 0
+  _type: 0
   _limbs: []
 --- !u!1 &9197280346106442731
 GameObject:
