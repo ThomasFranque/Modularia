@@ -210,9 +210,9 @@ The rooms are pre-made with a size of 30x30 units.
 
 Seeded generation is supported for same results every time.
 
---> Insert seed 7262020 img
+![Seed-7262020](https://github.com/ThomasFranque/Modularia/blob/master/imgs/Gen7262020.png "Generation With seed 7262020")
 
---> Insert seed 1234567 img
+![Seed-1234567](https://github.com/ThomasFranque/Modularia/blob/master/imgs/Gen1234567.png "Generation With seed 1234567")
 
 ### Parameters
 
