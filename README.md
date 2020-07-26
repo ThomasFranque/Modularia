@@ -304,7 +304,15 @@ algorithm should fix that).
 ## General References
 
 [Fisher–Yates shuffle solution](https://stackoverflow.com/questions/273313/randomize-a-listt)
+
 [Wait one frame solution](https://forum.unity.com/threads/how-to-wait-for-a-frame-in-c.24616/)
 
 The pathfinding algorithm was discussed with André Vitorino a21902663.
+
 General feedback and suggestions from Rodrigo Pinheiro a21802488.
+
+## Dev Keys
+
+> R - Generate new level.
+> G - View generated map.
+> B - Check enemy behaviours overlay.
