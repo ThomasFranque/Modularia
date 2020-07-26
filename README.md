@@ -4,7 +4,7 @@ A project by Tomás Franco a21803301
 
 ## Overview
 
--> Insert overview gif ///////////////////////////////////
+![Overview](https://github.com/ThomasFranque/Modularia/blob/master/imgs/Overview.gif)
 
 The base of the project itself is a first person roguelike dungeon crawler game.
 This project uses various AI elements. Them being:
@@ -35,7 +35,7 @@ to do just that.
 
 ### Behaviour tree
 
--> Insert the Base behaviour tree UML ///////////////////////////////////
+![BaseTreeUML](https://github.com/ThomasFranque/Modularia/blob/master/imgs/BehaviourTreeUML.png)
 
 Every behaviour tree has selectors, sequences and leafs.
 So, I created an interface named `ITreeComponent` that held everything I needed
@@ -122,7 +122,7 @@ These are: `Follow` `ProximityChecker` and `SmoothLookAt`.
 
 ### Enemy Tree Generation
 
---> Insert full tree UML ///////////////////////////////////
+![TreeUML](https://github.com/ThomasFranque/Modularia/blob/master/imgs/BehaviourTreeWGenUML.png)
 
 #### Enemy generation
 
@@ -198,7 +198,7 @@ A better `OnComplete` event handling
 
 ## Procedural Level Generation
 
---> insert UML ///////////////////////////////////////
+![GenUML](https://github.com/ThomasFranque/Modularia/blob/master/imgs/LevelGenerationUML.png)
 
 The level generation is pretty straightforward.
 A main branch is generated and when that is over, sub-branches are generated
@@ -228,7 +228,7 @@ in it, it will roll for a sub-branch using that chance.
 
 ## A* Pathfinding
 
---> Insert UML //////////////////////////
+![PathfindUML](https://github.com/ThomasFranque/Modularia/blob/master/imgs/PathfindingUML.png)
 
 Due to lack of time, this approach was the least homebrewed of the bunch, an
 implementation reference was taken from Sebastian Lague on Youtube on his A*
@@ -238,6 +238,8 @@ Everything was written from scratch.
 Even though implementation was simplified I still needed to make it work with
 the procedural levels and make it adapt to dynamic surroundings.
 
+![PathfindExample](https://github.com/ThomasFranque/Modularia/blob/master/imgs/Pathfind.png)
+
 ### Dynamic Surroundings
 
 For this, every time the algorithm tries to move to a certain tile, it performs a
@@ -245,8 +247,6 @@ For this, every time the algorithm tries to move to a certain tile, it performs 
 provided from Unity that tells if anything is overlapping with that tile position.
 
 This allows for environment physics to take place and affect the AI.
-
---> Example gif /////////////////
 
 ### Procedural Levels Link
 
