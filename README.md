@@ -285,3 +285,4 @@ the generation from being interesting.
 - The game performance is awfully hit if the player stands in an obstructed
 tile due to long pathfinding searches (implementing an obstacle avoidance
 algorithm should fix that).
+- The enemy movement is not smooth and the path can be clearly seen

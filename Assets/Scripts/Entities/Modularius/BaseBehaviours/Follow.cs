@@ -29,8 +29,8 @@ namespace Entities.Modularius.BaseBehaviours
 
         private void LerpFollow()
         {
-            if (_path.Length == 0) return;
-            Vector3 targetPosition = _path[0];
+            if (_path.Length <= 1) return;
+            Vector3 targetPosition = _path[1];
             targetPosition.y = transform.position.y;
             transform.position = Vector3.Lerp(transform.position,
                 targetPosition,
@@ -39,8 +39,8 @@ namespace Entities.Modularius.BaseBehaviours
 
         private void LinearFollow()
         {
-            if (_path.Length == 0) return;
-            Vector3 targetPosition = _path[0];
+            if (_path.Length == 1) return;
+            Vector3 targetPosition = _path[1];
             targetPosition.y = transform.position.y;
             transform.position =
                 Vector3.MoveTowards(transform.position, targetPosition, _speed * Time.deltaTime);

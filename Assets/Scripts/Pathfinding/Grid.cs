@@ -144,7 +144,7 @@ namespace Pathfinding
                 iters++;
                 if (iters > maxIters) break;
             }
-            positions.Reverse();
+            //positions.Reverse();
             return positions.ToArray();
         }
 

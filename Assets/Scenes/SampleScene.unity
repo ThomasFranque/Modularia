@@ -1747,6 +1747,7 @@ MonoBehaviour:
     m_Bits: 2049
   _levelFinishPrefab: {fileID: 7319576423781798098, guid: a7e6839d29e805441befcad1260433db,
     type: 3}
+  _seed: 0
 --- !u!4 &1317517963 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4895393306415318134, guid: f2d9a21b29799a5429fa9b06818e8cb4,

@@ -24,6 +24,8 @@ namespace LevelGeneration
         private static readonly Vector3Int[] AllPossibleDirections =
             new Vector3Int[4] { Forward, Backwards, Left, Right };
 
+        [SerializeField] private int _seed = default;
+
         private List<Vector3Int> _takenLocations;
         private Dictionary<Vector3Int, Room> _allRooms;
         private Branch _currentMainBranch;
@@ -41,7 +43,7 @@ namespace LevelGeneration
         private void Awake()
         {
             Grid.SetLayermask(_pathfindingObstacles);
-            CreateNewLevel();
+            CreateNewLevel(_seed);
         }
 
         public void CreateNewLevel(int seed = default)
