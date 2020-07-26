@@ -203,7 +203,7 @@ namespace ModulariaBehaviourTree
         }
 
         /// <summary>
-        /// 
+        /// Kills all of the children
         /// </summary>
         // Kill all the children and join the dark side
         public void Kill()

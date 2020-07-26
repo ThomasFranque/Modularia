@@ -287,6 +287,10 @@ tile due to long pathfinding searches (implementing an obstacle avoidance
 algorithm should fix that).
 - The enemy movement is not smooth and the path can be clearly seen
 
+### Code
+
+- The huge lack of and inconsistency on the documentation
+
 ## Used Assets
 
 - [Volumetric 3D Lasers](https://assetstore.unity.com/packages/vfx/particles/spells/volumetric-3d-lasers-104580)
@@ -296,3 +300,11 @@ algorithm should fix that).
 - [RPG Monster Duo](https://assetstore.unity.com/packages/3d/characters/creatures/rpg-monster-duo-pbr-polyart-157762)
 
 - [Lovely animals pack](https://assetstore.unity.com/packages/3d/characters/animals/lovely-animals-pack-92629#content)
+
+## General References
+
+[Fisher–Yates shuffle solution](https://stackoverflow.com/questions/273313/randomize-a-listt)
+[Wait one frame solution](https://forum.unity.com/threads/how-to-wait-for-a-frame-in-c.24616/)
+
+The pathfinding algorithm was discussed with André Vitorino a21902663.
+General feedback and suggestions from Rodrigo Pinheiro a21802488.

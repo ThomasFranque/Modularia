@@ -103,7 +103,7 @@ namespace ModulariaBehaviourTree
         }
 
         /// <summary>
-        /// 
+        /// Kill this behaviour
         /// </summary>
         // Why master Anakin? *zwoom*
         public void Kill()

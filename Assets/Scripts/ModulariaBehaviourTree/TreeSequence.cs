@@ -30,6 +30,8 @@ namespace ModulariaBehaviourTree
             return Execute(onComplete);
         }
 
+
+        // Debug purposes
         string name;
         public void SetName(string name)
         {
@@ -46,6 +48,9 @@ namespace ModulariaBehaviourTree
             return Condition();
         }
 
+        /// <summary>
+        /// Executes the next child in line
+        /// </summary>
         private void ExecuteNext()
         {
             bool success = false;
@@ -61,6 +66,10 @@ namespace ModulariaBehaviourTree
                 Complete();
         }
 
+        /// <summary>
+        /// Adds a new Tree component
+        /// </summary>
+        /// <param name="newComponent">Component to add</param>
         public void AddNew(ITreeComponent newComponent)
         {
             ITreeComponent[] temp = (ITreeComponent[]) _sequence.Clone();
@@ -103,7 +112,7 @@ namespace ModulariaBehaviourTree
         }
 
         /// <summary>
-        ///
+        /// Kill all children
         /// </summary>
         // You were the chosen one!
         public void Kill()

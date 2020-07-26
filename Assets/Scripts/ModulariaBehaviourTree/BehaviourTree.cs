@@ -76,7 +76,6 @@ namespace ModulariaBehaviourTree
             _main.Execute();
         }
 
-        // From https://forum.unity.com/threads/how-to-wait-for-a-frame-in-c.24616/
         IEnumerator RunNextFrame()
         {
             yield return 0;

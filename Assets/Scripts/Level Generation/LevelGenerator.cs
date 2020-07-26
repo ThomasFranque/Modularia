@@ -46,6 +46,10 @@ namespace LevelGeneration
             CreateNewLevel(_seed);
         }
 
+        /// <summary>
+        /// Creates a new level
+        /// </summary>
+        /// <param name="seed">Level Seed</param>
         public void CreateNewLevel(int seed = default)
         {
             /*
@@ -91,6 +95,15 @@ namespace LevelGeneration
             GC.Collect();
         }
 
+        /// <summary>
+        /// Recursive generator method 
+        /// </summary>
+        /// <param name="containingBranch">Branch in which it is contained</param>
+        /// <param name="previousLoc">Previous generated location</param>
+        /// <param name="previousDir">Previous generated direction</param>
+        /// <param name="maxLength">Max branch length</param>
+        /// <param name="count">Amount created</param>
+        /// <param name="canHaveBranch">Can have sub branches</param>
         private void Generate(Branch containingBranch, Vector3Int previousLoc, Vector3Int previousDir, int maxLength, int count, bool canHaveBranch)
         {
             Vector3Int newLoc = previousLoc + previousDir;
@@ -124,6 +137,7 @@ namespace LevelGeneration
                 containingBranch.AddNewRoomPosition(newLoc);
                 Generate(containingBranch, newLoc, newDir, maxLength, count + 1, canHaveBranch);
 
+                // Try yo place the exit
                 if (!_exitPlaced)
                 {
                     _exitPlaced = true;
@@ -140,6 +154,10 @@ namespace LevelGeneration
             }
         }
 
+        /// <summary>
+        /// Place the exit
+        /// </summary>
+        /// <param name="position"></param>
         private void PlaceExit(Vector3Int position)
         {
             GameObject exit =
@@ -147,8 +165,9 @@ namespace LevelGeneration
             exit.transform.position = position * Room.ROOM_SIZE;
         }
 
-        // Based on the Fisher–Yates shuffle
-        // taken from https://stackoverflow.com/questions/273313/randomize-a-listt
+        /// <summary>
+        /// Shuffle directions collection
+        /// </summary>
         private void ShuffleDirections()
         {
             int n = AllPossibleDirections.Length;
@@ -162,6 +181,11 @@ namespace LevelGeneration
             }
         }
 
+        /// <summary>
+        /// Checks if a position has an open neighbor
+        /// </summary>
+        /// <param name="toCheck">Position to check</param>
+        /// <returns>True if has a open neighbor</returns>
         private bool HasOpenNeighbor(Vector3Int toCheck)
         {
             return !PositionOccupied(toCheck - Forward) ||
@@ -170,6 +194,11 @@ namespace LevelGeneration
                 !PositionOccupied(toCheck - Left);
         }
 
+        /// <summary>
+        /// Check if the position is occupied
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
         private bool PositionOccupied(Vector3Int position) =>
             _takenLocations.Contains(position);
 
