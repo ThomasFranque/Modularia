@@ -314,5 +314,7 @@ General feedback and suggestions from Rodrigo Pinheiro a21802488.
 ## Dev Keys
 
 > R - Generate new level.
+>
 > G - View generated map.
+>
 > B - Check enemy behaviours overlay.
