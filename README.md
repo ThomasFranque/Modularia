@@ -318,3 +318,5 @@ General feedback and suggestions from Rodrigo Pinheiro a21802488.
 > G - View generated map.
 >
 > B - Check enemy behaviours overlay.
+
+(I - To access enhancements)
