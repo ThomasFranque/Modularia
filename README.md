@@ -147,7 +147,7 @@ Are sort of pre-made tree components
 Are a collection of "Raw Behaviours" (behaviours that are not composed) and
 composed behaviours. Reflection is used to get the raw behaviours.
 
--> Insert gif
+-> Insert gif ///////////////////////////////////
 
 ##### Modulariu Part Profile
 
@@ -155,7 +155,7 @@ composed behaviours. Reflection is used to get the raw behaviours.
 
 Are what behaviours can that part have. And other info.
 
--> Insert gif
+-> Insert gif ///////////////////////////////////
 
 #### Generated Tree
 
@@ -180,13 +180,13 @@ respective selector.
 If a core has all limbs of its type, it will be considered an elite
 and add the respective type special composed behaviour.
 
-The Layer 2 Selector chances will be determined by taking into
+The Layer 2 Selector weights will be determined by taking into
 account the core type and limbs, the core having an weight of 0.8
 while limbs have 0.2 (Do not mix weights with influences. Influences
 were supposed to be the stats influence on the core, having nothing
 to do with the tree).
 
-### References
+### Behaviour Tree References
 
 [Behaviour trees for AI - Chris Simpson](https://www.gamasutra.com/blogs/ChrisSimpson/20140717/221339/Behavior_trees_for_AI_How_they_work.php)
 
@@ -195,6 +195,71 @@ to do with the tree).
 A parent class for the three `ITreeComponents`
 
 A better `OnComplete` event handling
+
+## Level Generation
+
+--> insert UML ///////////////////////////////////////
+
+The level generation is pretty straightforward.
+A main branch is generated and when that is over, sub-branches are generated
+from it. Lastly, room doors on branch intersections and same-branch door intersections open up.
+
+On the last room of the main branch, an exit is placed.
+
+The rooms are pre-made with a size of 30x30 units.
+
+Seeded generation is supported for same results every time.
+
+--> Insert seed 7262020 img
+
+--> Insert seed 1234567 img
+
+### Parameters
+
+There is a direction change parameter that determines whether the generator
+should go a different direction or not after a new room is created.
+
+There is a sub-branch chance. After the main branch is generated, for every room
+in it, it will roll for a sub-branch using that chance.
+
+### Generation References
+
+[Spelunky Generation - GMTK](https://www.youtube.com/watch?v=Uqk5Zf0tw3o)
+
+## A* Pathfinding
+
+--> Insert UML //////////////////////////
+
+Due to lack of time, this approach was the least homebrewed of the bunch, an
+implementation reference was taken from Sebastian Lague on Youtube on his A*
+Pathfinding series. Pre-made code was not taken from his given resource.
+Everything was written from scratch.
+
+Even though implementation was simplified I still needed to make it work with
+the procedural levels and make it adapt to dynamic surroundings.
+
+### Dynamic Surroundings
+
+For this, every time the algorithm tries to move to a certain tile, it performs a
+[`Physics.CheckBox()`](https://docs.unity3d.com/ScriptReference/Physics.CheckBox.html)
+provided from Unity that tells if anything is overlapping with that tile position.
+
+This allows for environment physics to take place and affect the AI.
+
+--> Example gif /////////////////
+
+### Procedural Levels Link
+
+The initial idea was to have a big grid for the entire map, but time was running
+out and had to cut that idea.
+Instead, I made it so that every room is individual and doors close upon player
+entry, spawns some enemies and, when they are all dead, doors open up again.
+
+### A* Reference
+
+[A* Implementation - Sebastian Lague](https://www.youtube.com/watch?v=mZfyt03LDH4)
+
+[A Simple A* Path-Finding Example in C# - TwoCats Blog](https://web.archive.org/web/20170505034417/http://blog.two-cats.com/2014/06/a-star-example/)
 
 ## Known Issues (so far)
 
@@ -210,11 +275,11 @@ to stop and not keep running (not sure if it is a behaviour problem or a tree pr
 - The only known issue is a huge game design flaw on chances that prevents
 the generation from being interesting.
 
-### Level Generation
+### Generation
 
 - No known issues.
 
-### A* Pathfinding
+### Pathfinding
 
 - Enemies will get stuck on obstructed tiles if they happen to step on them
 - The game performance is awfully hit if the player stands in an obstructed
