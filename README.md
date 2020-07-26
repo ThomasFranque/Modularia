@@ -196,7 +196,7 @@ A parent class for the three `ITreeComponents`
 
 A better `OnComplete` event handling
 
-## Level Generation
+## Procedural Level Generation
 
 --> insert UML ///////////////////////////////////////
 
@@ -275,7 +275,7 @@ to stop and not keep running (not sure if it is a behaviour problem or a tree pr
 - The only known issue is a huge game design flaw on chances that prevents
 the generation from being interesting.
 
-### Generation
+### Level Generation
 
 - No known issues.
 
