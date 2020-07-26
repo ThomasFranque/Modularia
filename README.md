@@ -147,7 +147,7 @@ Are sort of pre-made tree components
 Are a collection of "Raw Behaviours" (behaviours that are not composed) and
 composed behaviours. Reflection is used to get the raw behaviours.
 
--> Insert gif ///////////////////////////////////
+![ComposedInspector](https://github.com/ThomasFranque/Modularia/blob/master/imgs/ComposedExample.png)
 
 ##### Modulariu Part Profile
 
@@ -155,7 +155,7 @@ composed behaviours. Reflection is used to get the raw behaviours.
 
 Are what behaviours can that part have. And other info.
 
--> Insert gif ///////////////////////////////////
+![PartInspector](https://github.com/ThomasFranque/Modularia/blob/master/imgs/PartExample.png)
 
 #### Generated Tree
 
@@ -286,3 +286,13 @@ the generation from being interesting.
 tile due to long pathfinding searches (implementing an obstacle avoidance
 algorithm should fix that).
 - The enemy movement is not smooth and the path can be clearly seen
+
+## Used Assets
+
+- [Volumetric 3D Lasers](https://assetstore.unity.com/packages/vfx/particles/spells/volumetric-3d-lasers-104580)
+
+- [Epic Toon FX](https://assetstore.unity.com/packages/vfx/particles/epic-toon-fx-57772)
+
+- [RPG Monster Duo](https://assetstore.unity.com/packages/3d/characters/creatures/rpg-monster-duo-pbr-polyart-157762)
+
+- [Lovely animals pack](https://assetstore.unity.com/packages/3d/characters/animals/lovely-animals-pack-92629#content)
